@@ -1,0 +1,3229 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaultMesh — Distributed Object Storage & Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app-container">
+
+    <!-- ==========================================================================
+         MODE 1: PUBLIC MARKETING LANDING PORTAL (ceph.io inspired)
+         ========================================================================== -->
+    <div id="landing-portal-wrapper" class="landing-portal-wrapper active">
+
+      <!-- ==================== TOP NAVIGATION BAR ==================== -->
+      <header class="site-header">
+        <div class="container nav-wrapper">
+          <!-- Logo: Cyan diamond mark -->
+          <a href="#" class="brand-logo-group" data-view="portal">
+            <div class="brand-mark">◈</div>
+            <div class="brand-title">
+              VaultMesh <span class="accent-dot">.</span>
+            </div>
+          </a>
+
+          <!-- Right-Aligned Nav Links -->
+          <nav>
+            <ul class="nav-links">
+              <li><a href="#discover" class="nav-item-link">Discover</a></li>
+              <li><a href="#users" class="nav-item-link">Users</a></li>
+              <li><a href="#developers" class="nav-item-link">Developers</a></li>
+              <!-- Documentation with Dropdown -->
+              <li class="nav-dropdown-wrap">
+                <a href="#developers" class="nav-item-link">
+                  <span>Documentation</span>
+                  <span class="material-symbols-outlined" style="font-size: 16px;">expand_more</span>
+                </a>
+                <div class="nav-dropdown-menu">
+                  <button class="dropdown-item" data-modal="docs" data-doc-tab="quickstart">
+                    <span class="material-symbols-outlined text-cyan" style="font-size: 16px;">rocket_launch</span>
+                    <span>Quickstart Guide</span>
+                  </button>
+                  <button class="dropdown-item" data-modal="docs" data-doc-tab="api">
+                    <span class="material-symbols-outlined text-teal" style="font-size: 16px;">api</span>
+                    <span>S3 REST API Reference</span>
+                  </button>
+                  <button class="dropdown-item" data-modal="docs" data-doc-tab="crush">
+                    <span class="material-symbols-outlined text-emerald" style="font-size: 16px;">hub</span>
+                    <span>CRUSH Algorithm Spec</span>
+                  </button>
+                  <button class="dropdown-item" data-view="policies">
+                    <span class="material-symbols-outlined text-cyan" style="font-size: 16px;">policy</span>
+                    <span>Durability Policies</span>
+                  </button>
+                  <button class="dropdown-item" data-view="topology">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">account_tree</span>
+                    <span>Live CRUSH Topology</span>
+                  </button>
+                </div>
+              </li>
+              <li><a href="#community" class="nav-item-link">Community</a></li>
+              <li><a href="#news" class="nav-item-link">News</a></li>
+              <li><a href="#foundation" class="nav-item-link">Foundation</a></li>
+            </ul>
+          </nav>
+
+          <!-- Right CTA Button (Solid Cyan -> /dashboard) -->
+          <div class="nav-actions">
+            <button class="btn-launch-cyan" id="nav-launch-console" data-view="dashboard">
+              <span class="material-symbols-outlined" style="font-size: 16px;">terminal</span>
+              <span>Launch Console</span>
+              <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==================== SECTION 1 — HERO ==================== -->
+      <section class="hero-fullbleed" id="hero">
+        <div class="hero-mesh-canvas"></div>
+        <div class="hero-ambient-glow"></div>
+        
+        <div class="container hero-inner">
+          <h1 class="hero-headline">The Future of Resilient Storage™</h1>
+          <p class="hero-subhead">
+            VaultMesh is a self-healing, distributed object storage system.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-hero-solid-cyan" data-view="dashboard">
+              <span class="material-symbols-outlined" style="font-size: 20px;">terminal</span>
+              <span>Launch Console</span>
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+            </button>
+            <a href="#discover" class="btn-hero-outline">
+              <span>View Architecture</span>
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_downward</span>
+            </a>
+          </div>
+
+          <!-- Quick CLI Install snippet -->
+          <div class="hero-cli-box" style="background: rgba(15, 23, 42, 0.85); border-color: rgba(255, 255, 255, 0.15);">
+            <span class="text-muted" style="user-select: none;">$</span>
+            <span class="hero-cli-text font-mono" id="install-cmd" style="color: #f1f5f9;">curl -sSL https://get.vaultmesh.io | bash</span>
+            <button class="hero-cli-copy" id="btn-copy-install" title="Copy to clipboard">
+              <span class="material-symbols-outlined" style="font-size: 14px;">content_copy</span>
+              <span id="copy-btn-label">Copy</span>
+            </button>
+          </div>
+
+          <!-- Credibility Badges -->
+          <div class="hero-stat-pills">
+            <div class="hero-stat-pill">
+              <span class="material-symbols-outlined text-cyan" style="font-size: 14px;">verified_user</span>
+              <span><strong>99.999%</strong> SLA</span>
+            </div>
+            <div class="hero-stat-pill">
+              <span class="material-symbols-outlined text-teal" style="font-size: 14px;">grid_4x4</span>
+              <span><strong>RS(8+4)</strong> Erasure Coding</span>
+            </div>
+            <div class="hero-stat-pill">
+              <span class="material-symbols-outlined text-emerald" style="font-size: 14px;">lan</span>
+              <span><strong>Raft</strong> Consensus</span>
+            </div>
+            <div class="hero-stat-pill">
+              <span class="material-symbols-outlined text-cyan" style="font-size: 14px;">dns</span>
+              <span><strong>128-Node</strong> Fabric</span>
+            </div>
+            <div class="hero-stat-pill">
+              <span class="material-symbols-outlined text-emerald" style="font-size: 14px;">bolt</span>
+              <span><strong>&lt;0.5s</strong> Auto-Heal MTTR</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION 2 — INTRO STATEMENT ==================== -->
+      <section class="section-intro-statement" id="intro">
+        <div class="container">
+          <p class="intro-paragraph">
+            VaultMesh is an open source distributed storage system designed to provide excellent performance, reliability and scalability. Engineered with <strong>self-healing Galois field mathematical repair</strong>, <strong>cryptographically verified Merkle trees</strong>, and <strong>linearizable Raft consensus</strong>, VaultMesh delivers multi-petabyte durability with zero centralized bottlenecks.
+          </p>
+          <hr class="ceph-divider">
+        </div>
+      </section>
+
+      <!-- ==================== SECTION 3 — DEPLOY OR MANAGE A CLUSTER ==================== -->
+      <section class="section-deploy-manage" id="deploy">
+        <div class="container">
+          <h2 class="deploy-heading">Deploy or manage a VaultMesh cluster</h2>
+          <p class="deploy-subline">
+            Deploy on bare-metal, Kubernetes, or cloud VPCs with single-command orchestration and autonomous failure isolation.
+          </p>
+
+          <div>
+            <button class="btn-deploy-cluster" data-view="dashboard">
+              <span class="material-symbols-outlined text-cyan" style="font-size: 22px;">dns</span>
+              <span>Deploy or manage a VaultMesh cluster</span>
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+            </button>
+          </div>
+
+          <div class="deploy-sublinks">
+            <button class="deploy-text-link" data-modal="docs" data-doc-tab="quickstart">Getting started</button>
+            <span style="color: var(--border-subtle);">|</span>
+            <button class="deploy-text-link" data-modal="docs" data-doc-tab="api">Documentation</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION 4 — STUDY, MODIFY AND CONTRIBUTE ==================== -->
+      <section class="section-study-contribute" id="study">
+        <div class="container">
+          <div class="study-grid">
+            <!-- Left Column: CTA + Links -->
+            <div class="study-left">
+              <h2 class="study-title">Study, modify and contribute to VaultMesh</h2>
+              <p class="study-desc">
+                VaultMesh is 100% open source under the Apache 2.0 license. Join a global community of distributed systems architects, contribute code, and shape the next generation of resilient storage.
+              </p>
+
+              <button class="btn-study-action" data-modal="community">
+                <span class="material-symbols-outlined" style="font-size: 18px;">code</span>
+                <span>Study, modify and contribute to VaultMesh</span>
+              </button>
+
+              <div class="study-links">
+                <a href="https://github.com" target="_blank" class="study-text-link">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">terminal</span>
+                  <span>Code</span>
+                </a>
+                <span style="color: var(--border-subtle);">·</span>
+                <button class="study-text-link" data-modal="community">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">volunteer_activism</span>
+                  <span>Contribute</span>
+                </button>
+                <span style="color: var(--border-subtle);">·</span>
+                <button class="study-text-link" data-modal="docs" data-doc-tab="crush">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">menu_book</span>
+                  <span>CRUSH Whitepaper</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Column: Cropped Wide Preview Banner (Clickable -> /dashboard/topology) -->
+            <div class="topology-preview-banner" data-view="topology" title="Click to open live CRUSH Topology in Console">
+              <div class="preview-banner-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="material-symbols-outlined text-cyan" style="font-size: 16px;">hub</span>
+                  <span style="font-weight: 700; color: #f1f5f9;">CRUSH PLACEMENT TOPOLOGY</span>
+                </div>
+                <span class="preview-banner-badge">Interactive Map</span>
+              </div>
+
+              <div class="preview-banner-body">
+                <!-- Inline resolution-independent crisp topology preview graphic -->
+                <svg viewBox="0 0 460 210" style="width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="svgIngressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#0284c7"/>
+                      <stop offset="100%" stop-color="#00f0d0"/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- S3 Ingress Root -->
+                  <rect x="150" y="8" width="160" height="32" rx="6" fill="url(#svgIngressGrad)"/>
+                  <text x="230" y="28" fill="#080b11" font-family="Inter" font-weight="700" font-size="11" text-anchor="middle">S3 / gRPC Ingress Stream</text>
+
+                  <!-- Down link -->
+                  <path d="M 230 40 L 230 64" stroke="#00f0d0" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                  <!-- CRUSH Execution Node -->
+                  <rect x="130" y="64" width="200" height="36" rx="6" fill="#141926" stroke="#00f0d0" stroke-width="1.2"/>
+                  <text x="230" y="82" fill="#00f0d0" font-family="JetBrains Mono" font-weight="700" font-size="10" text-anchor="middle">CRUSH Algorithm: RS(8+4)</text>
+                  <text x="230" y="93" fill="#94a3b8" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle">hash(object_id, epoch) → (D1..D8, P1..P4)</text>
+
+                  <!-- Branch Links to Multi-AZ Failure Domains -->
+                  <path d="M 230 100 L 75 125" stroke="#00f0d0" stroke-width="1.2"/>
+                  <path d="M 230 100 L 230 125" stroke="#0d9488" stroke-width="1.2"/>
+                  <path d="M 230 100 L 385 125" stroke="#10b981" stroke-width="1.2"/>
+
+                  <!-- Zone 1: us-east-2a -->
+                  <g transform="translate(15, 125)">
+                    <rect width="120" height="74" rx="6" fill="#0f1422" stroke="rgba(0, 240, 208, 0.3)"/>
+                    <text x="60" y="16" fill="#f1f5f9" font-family="JetBrains Mono" font-weight="700" font-size="9" text-anchor="middle">Zone: us-east-2a</text>
+                    <rect x="8" y="24" width="104" height="18" rx="3" fill="#161d2f" stroke="#0284c7"/>
+                    <text x="60" y="36" fill="#00f0d0" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.01 [Data D1]</text>
+                    <rect x="8" y="47" width="104" height="18" rx="3" fill="#161d2f" stroke="#10b981"/>
+                    <text x="60" y="59" fill="#10b981" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.02 [Parity P1]</text>
+                  </g>
+
+                  <!-- Zone 2: us-east-2b -->
+                  <g transform="translate(170, 125)">
+                    <rect width="120" height="74" rx="6" fill="#0f1422" stroke="rgba(0, 240, 208, 0.3)"/>
+                    <text x="60" y="16" fill="#f1f5f9" font-family="JetBrains Mono" font-weight="700" font-size="9" text-anchor="middle">Zone: us-east-2b</text>
+                    <rect x="8" y="24" width="104" height="18" rx="3" fill="#161d2f" stroke="#0284c7"/>
+                    <text x="60" y="36" fill="#00f0d0" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.05 [Data D2]</text>
+                    <rect x="8" y="47" width="104" height="18" rx="3" fill="#161d2f" stroke="#10b981"/>
+                    <text x="60" y="59" fill="#10b981" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.06 [Parity P2]</text>
+                  </g>
+
+                  <!-- Zone 3: us-east-2c -->
+                  <g transform="translate(325, 125)">
+                    <rect width="120" height="74" rx="6" fill="#0f1422" stroke="rgba(0, 240, 208, 0.3)"/>
+                    <text x="60" y="16" fill="#f1f5f9" font-family="JetBrains Mono" font-weight="700" font-size="9" text-anchor="middle">Zone: us-east-2c</text>
+                    <rect x="8" y="24" width="104" height="18" rx="3" fill="#161d2f" stroke="#0284c7"/>
+                    <text x="60" y="36" fill="#00f0d0" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.09 [Data D3]</text>
+                    <rect x="8" y="47" width="104" height="18" rx="3" fill="#161d2f" stroke="#10b981"/>
+                    <text x="60" y="59" fill="#10b981" font-family="JetBrains Mono" font-size="8" text-anchor="middle">OSD.10 [Parity P3]</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="preview-banner-overlay">
+                <span>Open Topology View</span>
+                <span class="material-symbols-outlined" style="font-size: 14px;">launch</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: DISCOVER ==================== -->
+      <section class="section-anchor-block" id="discover">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">explore</span>
+              Discover Architecture
+            </span>
+            <h2 class="section-main-heading">Built for Uncompromising Resiliency & Speed</h2>
+            <p class="section-subtitle-text">
+              Eliminate master coordinator bottlenecks with mathematical data placement, continuous cryptographic scrubbing, and hardware-accelerated SIMD repair.
+            </p>
+          </div>
+
+          <div class="cards-3col-grid">
+            <!-- Card 1 -->
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">hub</span>
+                </div>
+                <h3 class="card-heading-title">Deterministic CRUSH Map</h3>
+                <p class="card-body-text">
+                  Clients calculate exact storage daemon locations directly using deterministic pseudo-random hashing across multi-AZ failure domains, eliminating lookup bottlenecks.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="topology">
+                <span>Inspect CRUSH Map →</span>
+              </button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">security_update_warning</span>
+                </div>
+                <h3 class="card-heading-title">Galois Field Bit-Rot Recovery</h3>
+                <p class="card-body-text">
+                  Continuous BLAKE3 Merkle integrity verification. When silent hardware bit drift occurs, Reed-Solomon AVX-512 Galois matrix reconstructs data in under 0.35s.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="bitrot">
+                <span>View Bit-Rot Incident Drill →</span>
+              </button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">lan</span>
+                </div>
+                <h3 class="card-heading-title">Raft Linearizable Consensus</h3>
+                <p class="card-body-text">
+                  Multi-region 3/5 voter quorum state machine with 0.4ms fsync lease renewals, Optane WAL journaling, and strict linearizability guarantees.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="metadata">
+                <span>Inspect Raft Fabric →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: USERS ==================== -->
+      <section class="section-anchor-block alternate" id="users">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">groups</span>
+              Enterprise Use Cases
+            </span>
+            <h2 class="section-main-heading">Proven at Exabyte Scale Across Global Industries</h2>
+            <p class="section-subtitle-text">
+              From high-throughput GPU training clusters to multi-tenant banking archives, VaultMesh powers mission-critical object workloads.
+            </p>
+          </div>
+
+          <div class="cards-3col-grid">
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <h3 class="card-heading-title">AI & ML Data Lakes</h3>
+                <p class="card-body-text">
+                  Sustain 116.3k+ QPS with multi-stream epoll concurrency rings. Stream multi-gigabyte training checkpoints with sub-millisecond P50 latencies.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="dashboard">
+                <span>Inspect QPS Performance →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">cloud_sync</span>
+                </div>
+                <h3 class="card-heading-title">Multi-Tenant Cloud Fabric</h3>
+                <p class="card-body-text">
+                  Dynamic bucket namespace quotas, declarative durability policies, and background rebalancing with adaptive cgroups v2 I/O governors.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="rebalancing">
+                <span>View I/O Governor →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">receipt_long</span>
+                </div>
+                <h3 class="card-heading-title">Financial & Legal Archives</h3>
+                <p class="card-body-text">
+                  Immutable Merkle-sealed audit trail capturing all administrative commands, configuration mutations, and automatic repairs.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="audit">
+                <span>Open Audit Log Trail →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: DEVELOPERS ==================== -->
+      <section class="section-anchor-block" id="developers">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">terminal</span>
+              Developer Experience
+            </span>
+            <h2 class="section-main-heading">Standard S3 Protocol & Native Client SDKs</h2>
+            <p class="section-subtitle-text">
+              Drop-in compatibility with standard AWS S3 SDKs, low-latency multiplexed HTTP/2 ingress, and programmatic durability policies.
+            </p>
+          </div>
+
+          <div class="cards-3col-grid">
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">api</span>
+                </div>
+                <h3 class="card-heading-title">100% S3 API Compatibility</h3>
+                <p class="card-body-text">
+                  Zero code changes needed for boto3, aws-sdk-js, minio-go, and AWS CLI clients. Full support for multipart uploads, bucket policies, and object tagging.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="docs" data-doc-tab="api">
+                <span>Read API Reference →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">tune</span>
+                </div>
+                <h3 class="card-heading-title">Policy Synthesizer</h3>
+                <p class="card-body-text">
+                  Synthesize Reed-Solomon RS(k+m) or Full Replication policies per bucket with real-time storage overhead calculations and durability targets.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="policies">
+                <span>Synthesize Policies →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">experiment</span>
+                </div>
+                <h3 class="card-heading-title">Chaos Simulation Sandbox</h3>
+                <p class="card-body-text">
+                  Test your application against synthetic node dropouts, split-brain WAN partitions, and spine latency injection without touching production data.
+                </p>
+              </div>
+              <button class="card-footer-action" data-view="failure-sim">
+                <span>Launch Chaos Sandbox →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: COMMUNITY ==================== -->
+      <section class="section-anchor-block alternate" id="community">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">forum</span>
+              Global Community
+            </span>
+            <h2 class="section-main-heading">A Vibrant, Open Ecosystem of Storage Engineers</h2>
+            <p class="section-subtitle-text">
+              Join thousands of systems developers, SREs, and storage architects building the future of distributed object storage.
+            </p>
+          </div>
+
+          <div class="cards-3col-grid">
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">chat</span>
+                </div>
+                <h3 class="card-heading-title">Discord & Slack Fabric</h3>
+                <p class="card-body-text">
+                  Connect directly with core maintainers, ask questions in #general, share cluster benchmarks in #showcase, and participate in office hours.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="community">
+                <span>Join Discord Fabric →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">source</span>
+                </div>
+                <h3 class="card-heading-title">GitHub Discussions & RFCs</h3>
+                <p class="card-body-text">
+                  Review active architecture design proposals, propose new CRUSH rule extensions, and contribute bug fixes and performance patches.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="community">
+                <span>Explore GitHub RFCs →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">event</span>
+                </div>
+                <h3 class="card-heading-title">Bi-Weekly Community Standup</h3>
+                <p class="card-body-text">
+                  Public virtual community meetings every other Thursday at 17:00 UTC. Live roadmap demos, release planning, and SRE lightning talks.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="community">
+                <span>View Community Calendar →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: NEWS ==================== -->
+      <section class="section-anchor-block" id="news">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">newspaper</span>
+              News & Updates
+            </span>
+            <h2 class="section-main-heading">Latest Announcements & Benchmark Reports</h2>
+            <p class="section-subtitle-text">
+              Stay informed on new releases, performance breakthroughs, and security disclosures.
+            </p>
+          </div>
+
+          <div class="news-cards-row">
+            <div class="news-article-card" data-modal="news" data-news-id="1">
+              <div>
+                <div class="news-date">SEPTEMBER 2026 · RELEASE</div>
+                <h3 class="news-title">VaultMesh v4.18 Released with SIMD AVX-512 Galois Bit-Rot Repair</h3>
+                <p class="news-snippet">
+                  Introduces autonomous Reed-Solomon RS(8+4) recovery completing corrupted block reconstructions in under 350 milliseconds without customer impact.
+                </p>
+              </div>
+              <div style="margin-top: 16px; color: var(--brand-primary); font-weight: 600; font-size: 0.875rem;">Read Release Notes →</div>
+            </div>
+
+            <div class="news-article-card" data-modal="news" data-news-id="2">
+              <div>
+                <div class="news-date">AUGUST 2026 · BENCHMARK</div>
+                <h3 class="news-title">128-Node Fabric Benchmark: Sustaining 116.3k QPS Under Split-Brain WAN Simulation</h3>
+                <p class="news-snippet">
+                  Comprehensive performance results demonstrating linearizable Raft consensus stability and zero data corruption during simulated network partitions.
+                </p>
+              </div>
+              <div style="margin-top: 16px; color: var(--brand-primary); font-weight: 600; font-size: 0.875rem;">Read Whitepaper →</div>
+            </div>
+
+            <div class="news-article-card" data-modal="news" data-news-id="3">
+              <div>
+                <div class="news-date">JULY 2026 · SECURITY</div>
+                <h3 class="news-title">Annual Cryptographic Security Audit Concluded with Zero High-Severity Findings</h3>
+                <p class="news-snippet">
+                  Third-party security assessment validates the BLAKE3 Merkle journal, TLS 1.3 AES-256 session isolation, and append-only audit signature verification.
+                </p>
+              </div>
+              <div style="margin-top: 16px; color: var(--brand-primary); font-weight: 600; font-size: 0.875rem;">View Security Report →</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ANCHOR SECTION: FOUNDATION ==================== -->
+      <section class="section-anchor-block alternate" id="foundation">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-kicker">
+              <span class="material-symbols-outlined" style="font-size: 14px;">account_balance</span>
+              Governance & Foundation
+            </span>
+            <h2 class="section-main-heading">Governed by an Open, Vendor-Neutral Charter</h2>
+            <p class="section-subtitle-text">
+              VaultMesh is maintained as an open-source project under the Apache 2.0 license, dedicated to open standards, neutral stewardship, and long-term sustainability.
+            </p>
+          </div>
+
+          <div class="cards-3col-grid">
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">how_to_reg</span>
+                </div>
+                <h3 class="card-heading-title">Technical Steering Committee</h3>
+                <p class="card-body-text">
+                  Elected community leadership guiding the technical architecture, security policies, and release management roadmap.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="foundation">
+                <span>View TSC Members & Charter →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">verified</span>
+                </div>
+                <h3 class="card-heading-title">Apache 2.0 Licensing</h3>
+                <p class="card-body-text">
+                  Truly open software without restrictive commercial dual-licensing or vendor lock-in. Free for enterprise deployment and commercial extension.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="foundation">
+                <span>Read License Terms →</span>
+              </button>
+            </div>
+
+            <div class="feature-info-card">
+              <div>
+                <div class="card-icon-pill">
+                  <span class="material-symbols-outlined">handshake</span>
+                </div>
+                <h3 class="card-heading-title">Enterprise Working Groups</h3>
+                <p class="card-body-text">
+                  Collaborative industry working groups advancing NVMe-oF BlueStore storage engines, confidential computing, and GPU direct storage.
+                </p>
+              </div>
+              <button class="card-footer-action" data-modal="foundation">
+                <span>Join Working Group →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FOOTER (Dark Navy #090d16, 6 Columns) ==================== -->
+      <footer class="site-footer-dark">
+        <div class="container">
+          <div class="footer-6col-grid">
+            <!-- Col 1: Discover -->
+            <div>
+              <h4 class="footer-col-head">Discover</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-view="dashboard">Overview</button></li>
+                <li><button class="footer-nav-link" data-view="topology">CRUSH Architecture</button></li>
+                <li><button class="footer-nav-link" data-view="policies">Durability Policies</button></li>
+                <li><button class="footer-nav-link" data-view="rebalancing">Rebalancing Engine</button></li>
+                <li><button class="footer-nav-link" data-view="metadata">Raft Consensus</button></li>
+              </ul>
+            </div>
+
+            <!-- Col 2: Users -->
+            <div>
+              <h4 class="footer-col-head">Users</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-view="dashboard">Enterprise Deployment</button></li>
+                <li><button class="footer-nav-link" data-view="policies">Multi-Tenant S3</button></li>
+                <li><button class="footer-nav-link" data-modal="news" data-news-id="2">Performance Benchmarks</button></li>
+                <li><button class="footer-nav-link" data-modal="docs" data-doc-tab="quickstart">SRE Playbook</button></li>
+                <li><button class="footer-nav-link" data-view="audit">Audit Log Verification</button></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: Developers -->
+            <div>
+              <h4 class="footer-col-head">Developers</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-modal="docs" data-doc-tab="api">S3 API Reference</button></li>
+                <li><button class="footer-nav-link" data-modal="docs" data-doc-tab="crush">CRUSH Algorithm Spec</button></li>
+                <li><button class="footer-nav-link" data-view="bitrot">Galois Recovery Drill</button></li>
+                <li><button class="footer-nav-link" data-view="failure-sim">Chaos Sandbox</button></li>
+                <li><a href="https://github.com" target="_blank" class="footer-nav-link">GitHub Repository</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 4: Community -->
+            <div>
+              <h4 class="footer-col-head">Community</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-modal="community">Discord Fabric</button></li>
+                <li><button class="footer-nav-link" data-modal="community">Mailing List</button></li>
+                <li><button class="footer-nav-link" data-modal="community">RFC Proposals</button></li>
+                <li><button class="footer-nav-link" data-modal="community">Community Calendar</button></li>
+                <li><button class="footer-nav-link" data-modal="foundation">Code of Conduct</button></li>
+              </ul>
+            </div>
+
+            <!-- Col 5: News -->
+            <div>
+              <h4 class="footer-col-head">News</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-modal="news" data-news-id="1">v4.18 Release Notes</button></li>
+                <li><button class="footer-nav-link" data-modal="news" data-news-id="2">Fabric Whitepapers</button></li>
+                <li><button class="footer-nav-link" data-modal="news" data-news-id="3">Security Advisories</button></li>
+                <li><button class="footer-nav-link" data-modal="news">Blog & Press</button></li>
+                <li><button class="footer-nav-link" data-modal="docs">Events & Talks</button></li>
+              </ul>
+            </div>
+
+            <!-- Col 6: Foundation -->
+            <div>
+              <h4 class="footer-col-head">Foundation</h4>
+              <ul class="footer-link-list">
+                <li><button class="footer-nav-link" data-modal="foundation">Open Governance</button></li>
+                <li><button class="footer-nav-link" data-modal="foundation">Technical Steering Committee</button></li>
+                <li><button class="footer-nav-link" data-modal="foundation">Trademark Policy</button></li>
+                <li><button class="footer-nav-link" data-modal="foundation">Enterprise Sponsors</button></li>
+                <li><button class="footer-nav-link" data-modal="foundation">Foundation Charter</button></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bottom Row -->
+          <div class="footer-bottom-row">
+            <div class="footer-brand-lockup">
+              <span class="text-cyan font-bold">◈ VaultMesh Project</span>
+              <span>·</span>
+              <span>Apache 2.0 Open Source License</span>
+              <span>·</span>
+              <span>© 2026 VaultMesh Contributors</span>
+            </div>
+
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <a href="https://github.com" target="_blank" class="social-icon-btn" title="GitHub" style="color: #94a3b8;">
+                <span class="material-symbols-outlined">code</span>
+              </a>
+              <button class="social-icon-btn" data-modal="community" title="Discord Community" style="background: none; border: none; cursor: pointer; color: #94a3b8;">
+                <span class="material-symbols-outlined">forum</span>
+              </button>
+              <button class="social-icon-btn" data-view="dashboard" title="Launch Mission Control Console" style="background: none; border: none; cursor: pointer; color: var(--brand-cyan);">
+                <span class="material-symbols-outlined">terminal</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ==========================================================================
+         MODE 2: MISSION CONTROL OPERATIONAL CONSOLE (Dense telemetry & controls)
+         ========================================================================== -->
+    <div id="dashboard-console-wrapper" class="dashboard-console-wrapper">
+
+      <!-- ==================== SIDEBAR NAVIGATION ==================== -->
+      <aside class="sidebar" id="sidebar">
+        <div>
+          <div class="sidebar-header">
+            <a href="#" class="brand-container" id="brand-link" data-view="portal">
+              <div class="brand-logo">VM</div>
+              <div class="brand-text">
+                <span class="brand-name">VaultMesh <span>◈</span></span>
+                <span class="brand-sub">Object Storage</span>
+              </div>
+            </a>
+            <span class="cluster-version-badge">v4.18</span>
+          </div>
+
+          <div class="sidebar-nav-container">
+            <!-- Public Portal Section -->
+            <div class="nav-section">
+              <div class="nav-section-title">Site & Overview</div>
+              <ul class="nav-menu">
+                <li class="nav-item">
+                  <a class="nav-link" data-view="portal" id="nav-portal">
+                    <div class="nav-label-group">
+                      <span class="material-symbols-outlined text-cyan">public</span>
+                      <span>Public Overview</span>
+                    </div>
+                    <span class="status-pill active" style="font-size: 0.6rem; padding: 1px 5px;">Portal</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="nav-section">
+              <div class="nav-section-title">Telemetry & Map</div>
+              <ul class="nav-menu">
+                <li class="nav-item">
+                  <a class="nav-link active" data-view="dashboard" id="nav-dashboard">
+                    <div class="nav-label-group">
+                      <span class="material-symbols-outlined">grid_view</span>
+                      <span>Dashboard</span>
+                    </div>
+                    <span class="nav-badge">4.2ms</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-view="topology" id="nav-topology">
+                    <div class="nav-label-group">
+                      <span class="material-symbols-outlined">hub</span>
+                      <span>Topology & CRUSH</span>
+                    </div>
+                    <span class="nav-badge">128 OSD</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          <!-- Storage & Policies Section -->
+          <div class="nav-section">
+            <div class="nav-section-title">Storage & Policies</div>
+            <ul class="nav-menu">
+              <li class="nav-item">
+                <a class="nav-link" data-view="policies" id="nav-policies">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">policy</span>
+                    <span>Durability Policies</span>
+                  </div>
+                  <span class="nav-badge">EC 8+4</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-view="rebalancing" id="nav-rebalancing">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">sync_alt</span>
+                    <span>Rebalancing Engine</span>
+                  </div>
+                  <span class="nav-badge text-teal">420MB/s</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-view="metadata" id="nav-metadata">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">lan</span>
+                    <span>Metadata & Raft</span>
+                  </div>
+                  <span class="nav-badge text-emerald">Quorum OK</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Reliability & Chaos Section -->
+          <div class="nav-section">
+            <div class="nav-section-title">Reliability & Chaos</div>
+            <ul class="nav-menu">
+              <li class="nav-item">
+                <a class="nav-link" data-view="failure-sim" id="nav-failure-sim">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">experiment</span>
+                    <span>Failure Simulator</span>
+                  </div>
+                  <span class="status-pill active" style="font-size: 0.6rem; padding: 1px 4px;">Sandbox</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-view="bitrot" id="nav-bitrot">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">security_update_warning</span>
+                    <span>Bit-Rot Incident</span>
+                  </div>
+                  <span class="status-pill critical" style="font-size: 0.6rem; padding: 1px 4px;">Drill</span>
+                </a>
+              </li>
+            </ul>
+          <!-- Governance & Audit Section -->
+          <div class="nav-section">
+            <div class="nav-section-title">Governance & Audit</div>
+            <ul class="nav-menu">
+              <li class="nav-item">
+                <a class="nav-link" data-view="audit" id="nav-audit">
+                  <div class="nav-label-group">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <span>Audit Log</span>
+                  </div>
+                  <span class="nav-badge text-cyan">Live Trail</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Status Footer -->
+      <div class="sidebar-footer">
+        <div class="cluster-quick-status">
+          <div class="quick-status-row">
+            <span class="status-label">Cluster</span>
+            <span class="status-val text-cyan" id="sb-cluster-id">us-east-mesh-01</span>
+          </div>
+          <div class="quick-status-row">
+            <span class="status-label">Ring State</span>
+            <span class="status-val text-emerald" style="display:flex; align-items:center; gap:4px;">
+              <span class="status-beacon"></span>QUORUM 5/5
+            </span>
+          </div>
+          <div class="quick-status-row">
+            <span class="status-label">Epoch</span>
+            <span class="status-val font-mono" id="sb-epoch">#4,891,208</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN WRAPPER ==================== -->
+    <div class="main-wrapper">
+
+      <!-- Global Topbar Header -->
+      <header class="header-top">
+        <div class="header-left">
+          <div class="region-selector">
+            <span class="text-cyan">Fabric: Global Mesh</span>
+            <span class="text-muted">/</span>
+            <span>Zone: us-east-dc3</span>
+            <span class="tag-active">Active</span>
+          </div>
+          <div class="cluster-pulse-badge">
+            <span class="pulse-dot"></span>
+            <span id="top-health-status">HEALTH_OK: 128/128 Nodes Online</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="search-bar-wrap">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" class="search-input" id="global-search-input" placeholder="Search hash, node, PG, CIDR... ⌘K" autocomplete="off">
+            <span class="kbd-shortcut">⌘K</span>
+            <div class="search-results-dropdown" id="search-results-dropdown"></div>
+          </div>
+
+          <div class="header-actions">
+            <a href="#portal" class="btn btn-secondary btn-sm" id="btn-public-site" data-view="portal" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px; border-color:rgba(0, 240, 208, 0.4); color:var(--cyan-primary);">
+              <span class="material-symbols-outlined" style="font-size: 16px;">public</span>
+              <span>Public Site</span>
+            </a>
+            <button class="btn btn-secondary btn-sm" id="btn-quick-rebalance">
+              <span class="material-symbols-outlined" style="font-size: 16px;">autorenew</span>
+              <span>Rebalance</span>
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-quick-audit" data-view="audit">
+              <span class="material-symbols-outlined" style="font-size: 16px;">receipt_long</span>
+              <span>Audit</span>
+            </button>
+
+            <!-- Notifications Bell & Flyout Dropdown -->
+            <div class="notification-wrap" id="notification-wrap">
+              <button class="icon-btn-pill notif-bell-btn" id="btn-notifications" aria-label="Notifications" title="System Notifications">
+                <span class="material-symbols-outlined" style="font-size: 18px;">notifications</span>
+                <span class="unread-badge-pill" id="unread-count-badge">3</span>
+              </button>
+
+              <div class="notification-dropdown" id="notification-dropdown">
+                <div class="notification-header">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <span class="font-bold text-sm text-primary">Notifications</span>
+                      <span class="status-pill active" id="notif-total-badge" style="font-size: 0.625rem; padding: 1px 5px;">3 Unread</span>
+                    </div>
+                    <button class="btn-link text-xs text-cyan" id="btn-mark-all-read" style="background:none; border:none; cursor:pointer; font-family:var(--font-sans); font-weight:600; text-decoration:none;">
+                      Mark all as read
+                    </button>
+                  </div>
+                  <!-- Severity Filter Tabs -->
+                  <div class="notif-filter-row">
+                    <button class="notif-filter-tab active" data-notif-filter="all">All</button>
+                    <button class="notif-filter-tab" data-notif-filter="critical">Critical</button>
+                    <button class="notif-filter-tab" data-notif-filter="warning">Warnings</button>
+                    <button class="notif-filter-tab" data-notif-filter="info">Info</button>
+                  </div>
+                </div>
+
+                <div class="notification-list" id="notification-list">
+                  <!-- Rendered dynamically by app.js -->
+                </div>
+
+                <div class="notification-footer">
+                  <span class="text-xs text-muted font-mono" style="font-size: 0.6875rem;">Stream: WebSocket live</span>
+                  <button class="btn-link text-xs text-secondary" id="btn-notif-view-audit" data-view="audit" style="background:none; border:none; cursor:pointer; font-family:var(--font-sans); color:var(--cyan-primary);">
+                    Audit Trail →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-profile-pill">
+            <div class="user-avatar">SR</div>
+            <div class="user-meta">
+              <span class="user-name">lead-sre</span>
+              <span class="user-role">op://cluster-admin</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Container -->
+      <main class="main-content">
+
+        <!-- ==========================================================================
+             VIEW 1: OPERATIONS DASHBOARD (WITH CONCURRENCY PANEL)
+             ========================================================================== -->
+        <section class="view-panel active" id="view-dashboard">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Fabric Telemetry Mesh</span>
+                  <span>/</span>
+                  <span class="highlight">us-east-primary-az01</span>
+                </div>
+                <h1 class="view-title">
+                  Cluster Mission Control
+                  <span class="text-secondary font-normal text-lg">US-East Primary Mesh</span>
+                </h1>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="status-pill healthy">
+                  <span class="status-beacon"></span>
+                  <span>1.0s WebSocket Streaming</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-sync-telemetry" title="Sync Cluster Telemetry">
+                  <span class="material-symbols-outlined" id="sync-telemetry-icon" style="font-size: 16px;">refresh</span>
+                  <span id="sync-telemetry-label">Sync</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="btn-chaos-shortcut" data-view="failure-sim" title="Open Failure Simulator">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">tune</span>
+                  <span>Chaos Sandbox</span>
+                </button>
+              </div>
+            </div>
+            <p class="view-desc">
+              High-density distributed object storage telemetry, live placement group convergence, and cluster I/O performance.
+            </p>
+          </div>
+
+          <!-- Top Cluster Banner Strip (Clickable KPI Cards) -->
+          <div class="grid-kpi-4" style="margin-bottom: var(--space-lg);">
+            <div class="kpi-tile clickable" data-view="failure-sim" title="Click to view Chaos & Failure Simulator">
+              <div class="kpi-top">
+                <span class="kpi-label">Cluster State</span>
+                <span class="status-pill healthy">HEALTH_OK</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald">100%</span>
+                <span class="kpi-delta pos">Nominal</span>
+              </div>
+              <span class="kpi-sub">0 degraded PG · 0 backfilling</span>
+            </div>
+
+            <div class="kpi-tile clickable" data-view="topology" title="Click to view Topology & CRUSH Tree">
+              <div class="kpi-top">
+                <span class="kpi-label">Storage Daemons</span>
+                <span class="material-symbols-outlined text-cyan" style="font-size: 18px;">dns</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-cyan" id="dash-osd-count">128 / 128</span>
+                <span class="kpi-delta pos">Online</span>
+              </div>
+              <span class="kpi-sub">Quorum lock · 0 drained · 0 susp</span>
+            </div>
+
+            <div class="kpi-tile clickable" data-view="policies" title="Click to view Durability Policies">
+              <div class="kpi-top">
+                <span class="kpi-label">Active Schemes</span>
+                <span class="material-symbols-outlined text-teal" style="font-size: 18px;">hub</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-teal">EC 8+4 & 3x</span>
+              </div>
+              <span class="kpi-sub">Min Replica: 2x · Quorum: 3</span>
+            </div>
+
+            <div class="kpi-tile clickable" data-view="metadata" title="Click to view Metadata & Raft Consensus">
+              <div class="kpi-top">
+                <span class="kpi-label">Availability SLA</span>
+                <span class="material-symbols-outlined text-muted" style="font-size: 18px;">timer</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value">99.999%</span>
+                <span class="kpi-delta pos">412d up</span>
+              </div>
+              <span class="kpi-sub">Epoch #4,891,208 stable</span>
+            </div>
+          </div>
+
+          <!-- 4 Core Dense Telemetry KPI Cards (Clickable) -->
+          <div class="grid-kpi-4">
+            <!-- Card 1: Total Objects -->
+            <div class="kpi-tile clickable" data-view="policies" title="Click to view Storage Policies & Buckets">
+              <div class="kpi-top">
+                <span class="kpi-label">Total Objects Stored</span>
+                <span class="material-symbols-outlined text-cyan" style="font-size: 20px;">inventory_2</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="dash-objects-count">4.82B</span>
+                <span class="kpi-delta pos">+142M (7d)</span>
+              </div>
+              <div style="margin: 8px 0;">
+                <svg class="w-full" style="height: 28px; width: 100%; overflow: visible;" viewBox="0 0 100 24" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="sparkGrad1" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#00f0d0" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#00f0d0" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 0 20 L 10 18 L 22 19 L 35 15 L 48 16 L 60 12 L 72 13 L 84 8 L 94 6 L 100 4 L 100 24 L 0 24 Z" fill="url(#sparkGrad1)"/>
+                  <path d="M 0 20 L 10 18 L 22 19 L 35 15 L 48 16 L 60 12 L 72 13 L 84 8 L 94 6 L 100 4" fill="none" stroke="#00f0d0" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Raw: 14.2 PB</span>
+                <span class="text-cyan">Dedup: 1.42:1</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Capacity Pool -->
+            <div class="kpi-tile clickable" data-view="topology" title="Click to view Capacity Pools & CRUSH Map">
+              <div class="kpi-top">
+                <span class="kpi-label">Storage Pool Capacity</span>
+                <span class="status-pill active">70.0%</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="dash-capacity-val">8.4 PB</span>
+                <span class="text-muted" style="font-family:var(--font-mono); font-size:0.875rem;">/ 12.0 PB</span>
+              </div>
+              <div style="margin: 8px 0;">
+                <div style="display:flex; height:6px; background:var(--surface-highest); border-radius:var(--radius-full); overflow:hidden;">
+                  <div style="width: 45%; background: var(--cyan-primary);" title="Warm Tier: 5.4 PB"></div>
+                  <div style="width: 20%; background: var(--teal-bright);" title="Cold Tier: 2.4 PB"></div>
+                  <div style="width: 5%; background: var(--emerald-healthy);" title="Parity: 0.6 PB"></div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Warm 45% · Cold 20%</span>
+                <span class="text-emerald">Safe (&lt;80%)</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Replica Consistency -->
+            <div class="kpi-tile clickable" data-view="metadata" title="Click to view Inode Consistency & Raft Quorum">
+              <div class="kpi-top">
+                <span class="kpi-label">Replica Consistency</span>
+                <span class="material-symbols-outlined text-emerald" style="font-size: 20px;">verified</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald">100.0%</span>
+                <span class="kpi-delta pos">Sync Lock</span>
+              </div>
+              <div class="progress-track" style="margin: 8px 0;">
+                <div class="progress-fill emerald" style="width: 100%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Active: 14.46M shards</span>
+                <span class="text-emerald">0 under-replicated</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Healing & Scrub -->
+            <div class="kpi-tile clickable" data-view="bitrot" title="Click to view Healing, Deep Scrub & Bitrot Forensics">
+              <div class="kpi-top">
+                <span class="kpi-label">Healing & Scrub (24h)</span>
+                <span class="material-symbols-outlined text-teal" style="font-size: 20px;">cleaning_services</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value">184</span>
+                <span class="kpi-delta pos">Auto Runs</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-top: 10px;">
+                <span>Deep Scrubs Passed: <strong class="text-emerald">172/172</strong></span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Bit-rot Corrected: <strong class="text-cyan">12 via RS(8+4)</strong></span>
+                <span class="text-muted">MTTR: 2.4s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Central Grid: Left (Topology + Throughput + Concurrency) vs Right (Live Event Feed) -->
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-xl);" class="dash-split-grid">
+
+            <!-- LEFT COLUMN (2/3) -->
+            <div style="display:flex; flex-direction:column; gap: var(--space-xl);">
+
+              <!-- 1. Data Ring & CRUSH Placement Topology (Focal Point) -->
+              <div class="card primary-focal-card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <span class="material-symbols-outlined text-cyan">grain</span>
+                    <span>Data Ring & CRUSH Placement Topology</span>
+                    <span class="status-pill active" style="font-size: 0.6875rem;">16 Ring Slices</span>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button class="btn btn-secondary btn-sm" id="btn-toggle-mesh">Mesh Links: ON</button>
+                    <button class="btn btn-secondary btn-sm" id="btn-filter-zone">All AZs</button>
+                  </div>
+                </div>
+
+                <div style="position:relative; width:100%; height:320px; background:#ffffff; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                  <div style="position:absolute; inset:0; background: radial-gradient(circle at center, rgba(15, 118, 110, 0.04) 0%, transparent 70%); pointer-events:none;"></div>
+
+                  <!-- Interactive SVG Orbit Topology -->
+                  <svg id="topologySvg" viewBox="0 0 600 320" style="width:100%; height:100%; position:relative; z-index:1;">
+                    <defs>
+                      <linearGradient id="meshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#0f766e" stop-opacity="0.6"/>
+                        <stop offset="50%" stop-color="#0284c7" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#0f766e" stop-opacity="0.6"/>
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Orbit Rings -->
+                    <circle cx="300" cy="160" r="130" fill="none" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="4,4"/>
+                    <circle cx="300" cy="160" r="85" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                    <circle cx="300" cy="160" r="40" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+                    <!-- Central Raft Quorum Hub -->
+                    <circle cx="300" cy="160" r="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+                    <circle cx="300" cy="160" r="5" fill="#0f766e"/>
+                    <text x="300" y="163" fill="#0f766e" font-family="JetBrains Mono" font-size="7" font-weight="700" text-anchor="middle">RAFT</text>
+
+                    <!-- Mesh Connections -->
+                    <g id="topology-mesh-links" opacity="0.5">
+                      <path class="topology-mesh-link" d="M 300 30 Q 300 160 300 290" fill="none" stroke="url(#meshGrad)" stroke-width="1.2"/>
+                      <path class="topology-mesh-link" d="M 170 160 Q 300 160 430 160" fill="none" stroke="url(#meshGrad)" stroke-width="1.2"/>
+                      <path class="topology-mesh-link" d="M 208 68 Q 300 160 392 252" fill="none" stroke="#0f766e" stroke-width="1.2" stroke-opacity="0.4"/>
+                      <path class="topology-mesh-link" d="M 392 68 Q 300 160 208 252" fill="none" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.4"/>
+                    </g>
+
+                    <!-- 16 Storage Nodes in Circle -->
+                    <g id="topology-nodes-group">
+                      <!-- Generated dynamically via JS -->
+                    </g>
+                  </svg>
+
+                  <!-- Node Hover Inspector Floating Tooltip -->
+                  <div id="node-inspector-pill" style="position:absolute; bottom:12px; left:12px; background:rgba(255, 255, 255, 0.95); backdrop-filter:blur(8px); border:1px solid var(--border-interactive); border-radius:var(--radius-md); box-shadow:var(--shadow-dropdown); padding:6px 14px; display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:0.75rem; z-index:10;">
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+                      <span class="text-cyan font-bold" id="inspect-node-name">node-us-east-00</span>
+                    </div>
+                    <span class="text-muted">|</span>
+                    <span class="text-secondary">IOPS: <strong class="text-primary font-bold" id="inspect-node-iops">18.4k</strong></span>
+                    <span class="text-muted">|</span>
+                    <span class="text-secondary">Temp: <strong class="text-primary font-bold" id="inspect-node-temp">38°C</strong></span>
+                    <span class="text-muted">|</span>
+                    <span class="text-secondary">NVMe: <strong class="text-emerald font-bold" id="inspect-node-nvme">98% health</strong></span>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                  <div style="display:flex; gap:16px;">
+                    <span style="display:flex; align-items:center; gap:4px;"><span class="status-beacon" style="background:var(--cyan-primary);"></span> 14 Nominal OSDs</span>
+                    <span style="display:flex; align-items:center; gap:4px;"><span class="status-beacon" style="background:var(--emerald-healthy);"></span> 2 Rebalancing (osd.03, osd.11)</span>
+                    <span style="display:flex; align-items:center; gap:4px;"><span class="status-beacon" style="background:var(--red-critical);"></span> 0 Down</span>
+                  </div>
+                  <span>Hover node for real-time telemetry</span>
+                </div>
+              </div>
+
+              <!-- 2. CONCURRENCY & REAL-TIME INGRESS FABRIC PANEL -->
+              <div class="card" id="concurrency-panel">
+                <div class="card-header">
+                  <div class="card-title">
+                    <span class="material-symbols-outlined text-cyan">bolt</span>
+                    <span>Concurrency & Real-Time Ingress Fabric</span>
+                    <span class="status-pill active" style="font-size: 0.6875rem;">HTTP/2 & S3 gRPC MULTIPLEXED</span>
+                  </div>
+                  <div class="status-pill healthy" style="font-size: 0.75rem;">
+                    <span class="status-beacon"></span>
+                    <span>LIVE INGRESS: <strong id="live-ingress-qps">116.3k QPS</strong></span>
+                  </div>
+                </div>
+
+                <!-- 4-Column Concurrency & Latency KPI Grid -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-sm); margin-bottom: var(--space-md);">
+                  <!-- Active Connections Counter -->
+                  <div class="kpi-tile" style="padding: 10px 12px; background: var(--surface-low);">
+                    <span class="kpi-label">Active Connections</span>
+                    <div class="kpi-value-row">
+                      <span class="kpi-value text-cyan" style="font-size: 1.4rem;" id="active-conn-count">24,850</span>
+                      <span class="kpi-delta pos">+412</span>
+                    </div>
+                    <span class="kpi-sub" style="font-size: 0.6875rem;">18,420 S3 · 6,430 gRPC</span>
+                  </div>
+
+                  <!-- P50 Latency -->
+                  <div class="kpi-tile" style="padding: 10px 12px; background: var(--surface-low);">
+                    <span class="kpi-label">P50 Latency (Median)</span>
+                    <div class="kpi-value-row">
+                      <span class="kpi-value text-emerald" style="font-size: 1.4rem;" id="p50-val">0.82 ms</span>
+                      <span class="kpi-delta pos">-0.04ms</span>
+                    </div>
+                    <span class="kpi-sub" style="font-size: 0.6875rem;">R: 0.65ms · W: 1.12ms</span>
+                  </div>
+
+                  <!-- P95 Latency -->
+                  <div class="kpi-tile" style="padding: 10px 12px; background: var(--surface-low);">
+                    <span class="kpi-label">P95 Latency</span>
+                    <div class="kpi-value-row">
+                      <span class="kpi-value text-teal" style="font-size: 1.4rem;" id="p95-val">2.14 ms</span>
+                      <span class="kpi-delta pos">Nominal</span>
+                    </div>
+                    <span class="kpi-sub" style="font-size: 0.6875rem;">R: 1.80ms · W: 2.85ms</span>
+                  </div>
+
+                  <!-- P99 Latency & Tail SLA -->
+                  <div class="kpi-tile" style="padding: 10px 12px; background: var(--surface-low);">
+                    <span class="kpi-label">P99 Latency & SLA</span>
+                    <div class="kpi-value-row">
+                      <span class="kpi-value text-primary" style="font-size: 1.4rem;" id="p99-val">4.18 ms</span>
+                      <span class="status-pill healthy" style="font-size: 0.6rem; padding: 0 4px;">SLA SAFE</span>
+                    </div>
+                    <span class="kpi-sub" style="font-size: 0.6875rem;">Ceiling: &lt;15.0ms guardrail</span>
+                  </div>
+                </div>
+
+                <!-- Dual-Stream Read/Write QPS Line Chart (65%) + Request Queue Depth Gauge (35%) -->
+                <div style="display:grid; grid-template-columns: 2fr 1fr; gap: var(--space-md);" class="concurrency-inner-grid">
+
+                  <!-- Live Read/Write QPS Line Chart -->
+                  <div style="background: #ffffff; border-radius: var(--radius-lg); padding: 12px; border: 1px solid var(--border-subtle); display:flex; flex-direction:column; justify-content:space-between;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                      <div style="display:flex; align-items:center; gap: 12px; font-family:var(--font-mono); font-size:0.75rem;">
+                        <span style="display:flex; align-items:center; gap:4px; color:var(--cyan-primary);">
+                          <span style="width:8px; height:8px; border-radius:50%; background:var(--cyan-primary);"></span>
+                          Read: <strong id="qps-read-stat">84.2k QPS</strong> (72.4%)
+                        </span>
+                        <span style="display:flex; align-items:center; gap:4px; color:var(--emerald-healthy);">
+                          <span style="width:8px; height:8px; border-radius:50%; background:var(--emerald-healthy);"></span>
+                          Write: <strong id="qps-write-stat">32.1k QPS</strong> (27.6%)
+                        </span>
+                      </div>
+                      <span class="text-muted font-mono text-xs" id="qps-probe-sample">T-00:05s: Peak sync</span>
+                    </div>
+
+                    <!-- Dynamic SVG QPS Chart -->
+                    <div style="width:100%; height:130px; position:relative;">
+                      <svg id="qps-live-svg" viewBox="0 0 500 120" preserveAspectRatio="none" style="width:100%; height:100%; overflow:visible;">
+                        <defs>
+                          <linearGradient id="qpsReadArea" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#0f766e" stop-opacity="0.15"/>
+                            <stop offset="100%" stop-color="#0f766e" stop-opacity="0.0"/>
+                          </linearGradient>
+                          <linearGradient id="qpsWriteArea" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#16a34a" stop-opacity="0.12"/>
+                            <stop offset="100%" stop-color="#16a34a" stop-opacity="0.0"/>
+                          </linearGradient>
+                        </defs>
+                        <!-- Grid Lines -->
+                        <line x1="0" y1="20" x2="500" y2="20" stroke="#f1f5f9" stroke-dasharray="3,3"/>
+                        <text x="4" y="16" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">90k QPS</text>
+                        <line x1="0" y1="60" x2="500" y2="60" stroke="#f1f5f9" stroke-dasharray="3,3"/>
+                        <text x="4" y="56" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">60k QPS</text>
+                        <line x1="0" y1="100" x2="500" y2="100" stroke="#f1f5f9" stroke-dasharray="3,3"/>
+                        <text x="4" y="96" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">30k QPS</text>
+
+                        <!-- Read Curve -->
+                        <path id="qps-read-area-path" d="M 0 35 Q 50 25, 100 32 T 200 28 T 300 35 T 400 24 T 480 30 L 500 28 L 500 120 L 0 120 Z" fill="url(#qpsReadArea)"/>
+                        <path id="qps-read-line-path" d="M 0 35 Q 50 25, 100 32 T 200 28 T 300 35 T 400 24 T 480 30 L 500 28" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+
+                        <!-- Write Curve -->
+                        <path id="qps-write-area-path" d="M 0 85 Q 50 80, 100 84 T 200 78 T 300 82 T 400 75 T 480 80 L 500 78 L 500 120 L 0 120 Z" fill="url(#qpsWriteArea)"/>
+                        <path id="qps-write-line-path" d="M 0 85 Q 50 80, 100 84 T 200 78 T 300 82 T 400 75 T 480 80 L 500 78" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="4,2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.6875rem; color:var(--text-muted); padding-top:6px; border-top:1px solid var(--border-subtle);">
+                      <span>-60s</span>
+                      <span>-45s</span>
+                      <span>-30s</span>
+                      <span>-15s</span>
+                      <span class="text-cyan font-bold">LIVE (NOW)</span>
+                    </div>
+                  </div>
+
+                  <!-- Request Queue Depth Gauge -->
+                  <div style="background: #ffffff; border-radius: var(--radius-lg); padding: 12px; border: 1px solid var(--border-subtle); display:flex; flex-direction:column; justify-content:space-between;">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <span class="kpi-label">Queue Depth & Guardrail</span>
+                        <span class="status-pill healthy" style="font-size:0.625rem;" id="queue-status-tag">NOMINAL</span>
+                      </div>
+                      <div style="display:flex; align-items:baseline; justify-content:space-between; margin: 4px 0;">
+                        <span class="font-mono font-bold" style="font-size: 1.25rem;" id="queue-depth-text">142 <span class="text-muted font-normal text-xs">/ 2,048 reqs</span></span>
+                        <span class="text-emerald font-mono text-xs font-bold" id="queue-pct-text">6.9% Cap</span>
+                      </div>
+                      <!-- Multi-segment visual gauge -->
+                      <div style="height: 6px; background: var(--surface-highest); border-radius: var(--radius-full); overflow:hidden; display:flex; margin: 6px 0;">
+                        <div id="queue-fill-bar" style="width: 6.9%; background: var(--emerald-healthy); transition: width 0.3s ease;"></div>
+                      </div>
+                      <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.625rem; color:var(--text-muted); border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px;">
+                        <span class="text-emerald">0-500 Safe</span>
+                        <span class="text-amber">500-1200 Warn</span>
+                        <span class="text-red">&gt;1200 Shed</span>
+                      </div>
+                    </div>
+
+                    <!-- Granular Kernel Metrics -->
+                    <div style="display:flex; flex-direction:column; gap:4px; font-family:var(--font-mono); font-size:0.6875rem; color:var(--text-secondary); margin-top:8px;">
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>Worker Threads:</span>
+                        <span class="text-primary font-bold">256 / 256 Active</span>
+                      </div>
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>Dropped / Shed:</span>
+                        <span class="text-emerald font-bold">0 (0.000%)</span>
+                      </div>
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>Epoll Ring Latency:</span>
+                        <span class="text-cyan font-bold">18 µs</span>
+                      </div>
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>Conn Pool Saturation:</span>
+                        <span class="text-teal font-bold">24.8%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Storage Engine Health Breakdown -->
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <span class="material-symbols-outlined">layers</span>
+                    <span>Storage Engine Health Breakdown</span>
+                  </div>
+                  <span class="font-mono text-xs text-muted">BlueStore RocksDB WAL + NVMe Tiering</span>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md);">
+                  <div class="kpi-tile" style="background: var(--surface-low);">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>RocksDB Cache Hit</span>
+                      <strong class="text-cyan">99.4%</strong>
+                    </div>
+                    <div class="progress-track" style="margin: 6px 0;">
+                      <div class="progress-fill cyan" style="width: 99.4%;"></div>
+                    </div>
+                    <span class="font-mono text-xs text-muted">384 GB NVMe SRAM pinned</span>
+                  </div>
+                  <div class="kpi-tile" style="background: var(--surface-low);">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>WAL Flush Latency</span>
+                      <strong class="text-emerald">0.42 ms</strong>
+                    </div>
+                    <div class="progress-track" style="margin: 6px 0;">
+                      <div class="progress-fill emerald" style="width: 22%;"></div>
+                    </div>
+                    <span class="font-mono text-xs text-muted">Direct Optane sync</span>
+                  </div>
+                  <div class="kpi-tile" style="background: var(--surface-low);">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>CRUSH Placement Balance</span>
+                      <strong class="text-teal">98.9% Uniform</strong>
+                    </div>
+                    <div class="progress-track" style="margin: 6px 0;">
+                      <div class="progress-fill teal" style="width: 98.9%;"></div>
+                    </div>
+                    <span class="font-mono text-xs text-muted">Std dev across disks &lt;1.2%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN (1/3) Live Event Feed -->
+            <div class="card" style="display:flex; flex-direction:column; height: 100%; min-height: 600px;">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">dynamic_feed</span>
+                  <span>Live Event Feed</span>
+                </div>
+                <div class="status-pill active" style="font-size: 0.6875rem;">
+                  <span class="status-beacon"></span>
+                  <span id="event-rate-stat">1,420 ev/hr</span>
+                </div>
+              </div>
+
+              <!-- Filter Pills -->
+              <div style="display:flex; gap:4px; margin-bottom: var(--space-md); overflow-x:auto;">
+                <button class="btn btn-primary btn-sm filter-pill active" data-filter="all">All</button>
+                <button class="btn btn-secondary btn-sm filter-pill" data-filter="warn">Warnings</button>
+                <button class="btn btn-secondary btn-sm filter-pill" data-filter="heal">Auto-Heal</button>
+                <button class="btn btn-secondary btn-sm filter-pill" data-filter="peer">Peering</button>
+              </div>
+
+              <!-- Scrollable Event Stream -->
+              <div style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;" id="dash-event-stream">
+                <!-- Dynamically updated via JS -->
+              </div>
+
+              <div style="padding-top: var(--space-sm); border-top: 1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; margin-top:var(--space-sm);">
+                <button class="btn btn-secondary btn-sm" id="btn-pause-stream">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">pause_circle</span>
+                  <span>Pause</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-export-logs">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">download</span>
+                  <span>Export Syslog</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 2: REPLICATION & DURABILITY POLICIES (Requirement 1)
+             ========================================================================== -->
+        <section class="view-panel" id="view-policies">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Cluster Topology & Safety</span>
+                  <span>/</span>
+                  <span class="highlight">Engine: Reed-Solomon GF(2^8)</span>
+                </div>
+                <h1 class="view-title">Replication & Durability Policies</h1>
+              </div>
+              <div class="status-pill healthy">
+                <span class="status-beacon"></span>
+                <span>CRUSH Epoch: e#9402-v4 · Quorum Stable</span>
+              </div>
+            </div>
+            <p class="view-desc">
+              Declarative bucket-level erasure coding and multi-copy rules with live storage overhead calculations and fault domain isolation.
+            </p>
+          </div>
+
+          <!-- Top Durability KPI Strip -->
+          <div class="grid-kpi-4">
+            <div class="kpi-tile">
+              <span class="kpi-label">Active Policies</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-cyan">8</span>
+                <span class="kpi-delta pos">Configured</span>
+              </div>
+              <span class="kpi-sub">6 Erasure Coded · 2 Full Replicated</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Mean Durability SLA</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald">99.999%</span>
+                <span class="kpi-delta pos">11 9s</span>
+              </div>
+              <span class="kpi-sub">Failure Budget Loss: 0.000000001%</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Protected Pool</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-teal">14.8 PB</span>
+                <span class="text-muted font-mono text-sm">RAW</span>
+              </div>
+              <span class="kpi-sub">Effective Usable: 9.2 PB</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Cluster Overhead</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-primary">60.8%</span>
+                <span class="kpi-delta pos">Weighted Blend</span>
+              </div>
+              <span class="kpi-sub">EC 6+3 / 3x Multi-Copy Blend</span>
+            </div>
+          </div>
+
+          <!-- Main Two-Column Split: Active Policy Table vs Policy Synthesizer -->
+          <div style="display:grid; grid-template-columns: 3fr 2fr; gap: var(--space-xl); margin-bottom: var(--space-xl);" class="policies-split-grid">
+
+            <!-- Active Policy Table -->
+            <div style="display:flex; flex-direction:column; gap: var(--space-md);">
+              <div class="card focal-card">
+                <div class="card-header">
+                  <div class="card-title">
+                    <span class="material-symbols-outlined text-cyan">layers</span>
+                    <span>Active Namespace Policies</span>
+                  </div>
+                  <span class="status-pill active">5 Namespaces Scanned</span>
+                </div>
+
+                <div class="table-container">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Bucket / Namespace</th>
+                        <th>Scheme</th>
+                        <th>Durability Target</th>
+                        <th>Consistency Mode</th>
+                        <th>EC / Replica</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="policies-table-body">
+                      <tr>
+                        <td class="text-cyan font-bold">s3://financial-audit-logs</td>
+                        <td>3x Multi-Copy</td>
+                        <td class="text-emerald">99.999999999% (11 9s)</td>
+                        <td><span class="status-pill" style="background:var(--surface-high);">Strict Raft</span></td>
+                        <td>Full 3x (200% OH)</td>
+                        <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="selectPolicyPreset('financial')">Inspect</button></td>
+                      </tr>
+                      <tr>
+                        <td class="text-cyan font-bold">s3://telemetry-time-series</td>
+                        <td class="text-teal">EC 8+4</td>
+                        <td class="text-emerald">99.999999999% (11 9s)</td>
+                        <td><span class="status-pill" style="background:var(--surface-high);">Quorum W=5,R=5</span></td>
+                        <td>k=8, m=4 (50% OH)</td>
+                        <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="selectPolicyPreset('telemetry')">Inspect</button></td>
+                      </tr>
+                      <tr>
+                        <td class="text-cyan font-bold">s3://cold-archive-glacier</td>
+                        <td class="text-teal">EC 16+4</td>
+                        <td class="text-emerald">99.9999999999% (12 9s)</td>
+                        <td><span class="status-pill" style="background:var(--surface-high);">Eventual/Repair</span></td>
+                        <td>k=16, m=4 (25% OH)</td>
+                        <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="selectPolicyPreset('glacier')">Inspect</button></td>
+                      </tr>
+                      <tr>
+                        <td class="text-cyan font-bold">s3://video-stream-ingest</td>
+                        <td class="text-teal">EC 6+3</td>
+                        <td class="text-emerald">99.999999% (8 9s)</td>
+                        <td><span class="status-pill" style="background:var(--surface-high);">Quorum W=4,R=4</span></td>
+                        <td>k=6, m=3 (50% OH)</td>
+                        <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="selectPolicyPreset('video')">Inspect</button></td>
+                      </tr>
+                      <tr>
+                        <td class="text-cyan font-bold">s3://auth-identity-tokens</td>
+                        <td>3x Multi-Copy</td>
+                        <td class="text-emerald">99.999999999% (11 9s)</td>
+                        <td><span class="status-pill" style="background:var(--surface-high);">Linearizable</span></td>
+                        <td>Full 3x (200% OH)</td>
+                        <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                        <td><button class="btn btn-secondary btn-sm" onclick="selectPolicyPreset('auth')">Inspect</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Policy Synthesizer (Creation Form + Live Overhead Estimate) -->
+            <div class="card" id="policy-synthesizer-card" style="border-color: var(--cyan-subtle);">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-cyan">tune</span>
+                  <span>Policy Synthesizer</span>
+                </div>
+                <span class="status-pill active">Interactive</span>
+              </div>
+
+              <form id="policy-form" style="display:flex; flex-direction:column; gap:var(--space-md);" onsubmit="event.preventDefault(); handleDeployPolicy();">
+                <div class="form-group">
+                  <label class="form-label" for="policy-bucket-name">Bucket Namespace URI</label>
+                  <div style="display:flex; align-items:center; background:var(--surface-base); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:0 8px;">
+                    <span class="font-mono text-muted text-xs">s3://</span>
+                    <input type="text" id="policy-bucket-name" class="form-input" style="border:none; background:transparent;" value="analytics-deep-cold-v2" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Protection Mode</label>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4px; background:var(--surface-base); padding:3px; border-radius:var(--radius-md);">
+                    <button type="button" class="btn btn-primary btn-sm mode-tab active" id="tab-mode-ec" onclick="setPolicyMode('ec')">Erasure Coding (RS)</button>
+                    <button type="button" class="btn btn-secondary btn-sm mode-tab" id="tab-mode-rep" onclick="setPolicyMode('rep')">Full Replication</button>
+                  </div>
+                </div>
+
+                <!-- EC Sliders -->
+                <div id="ec-slider-group" style="display:flex; flex-direction:column; gap:var(--space-md); background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-md);">
+                  <div class="form-group">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>Data Chunks (k)</span>
+                      <strong class="text-cyan" id="val-k">6 Chunks</strong>
+                    </div>
+                    <input type="range" id="slider-k" min="2" max="16" value="6" oninput="updatePolicyEstimate()">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.625rem; color:var(--text-muted);">
+                      <span>2 (Fastest Compute)</span>
+                      <span>16 (Max Storage Density)</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>Parity Chunks (m)</span>
+                      <strong class="text-teal" id="val-m">3 Parity</strong>
+                    </div>
+                    <input type="range" id="slider-m" min="1" max="6" value="3" oninput="updatePolicyEstimate()">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.625rem; color:var(--text-muted);">
+                      <span>1 (Min Parity)</span>
+                      <span>6 (Extreme Resiliency)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Replication Sliders (Hidden by default) -->
+                <div id="rep-slider-group" style="display:none; flex-direction:column; gap:var(--space-md); background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-md);">
+                  <div class="form-group">
+                    <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                      <span>Replica Multiplier</span>
+                      <strong class="text-cyan" id="val-rep">3x Copies</strong>
+                    </div>
+                    <input type="range" id="slider-rep" min="1" max="5" value="3" oninput="updatePolicyEstimate()">
+                  </div>
+                </div>
+
+                <!-- Live Storage Overhead Calculation Card -->
+                <div style="background: var(--surface-low); border-radius: var(--radius-md); padding: 12px; border:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:8px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="kpi-label">Storage Topology Impact</span>
+                    <span class="status-pill healthy" id="policy-fault-badge">Fault Tolerance: 3 Nodes</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; text-align:center;">
+                    <div style="background:var(--surface-low); padding:6px; border-radius:var(--radius-sm);">
+                      <span class="kpi-label" style="font-size:0.625rem;">Overhead</span>
+                      <span class="font-mono text-cyan font-bold" id="stat-overhead">50.0%</span>
+                    </div>
+                    <div style="background:var(--surface-low); padding:6px; border-radius:var(--radius-sm);">
+                      <span class="kpi-label" style="font-size:0.625rem;">Efficiency</span>
+                      <span class="font-mono text-teal font-bold" id="stat-usable">66.7% Usable</span>
+                    </div>
+                    <div style="background:var(--surface-low); padding:6px; border-radius:var(--radius-sm);">
+                      <span class="kpi-label" style="font-size:0.625rem;">Est. Durability</span>
+                      <span class="font-mono text-emerald font-bold" id="stat-durability">11 9s</span>
+                    </div>
+                  </div>
+                  <p class="font-mono text-xs text-secondary" id="policy-narrative" style="margin-top:4px;">
+                    Can survive up to <strong>3 simultaneous disk/node losses</strong> without data unavailability.
+                  </p>
+                </div>
+
+                <div style="display:flex; gap:8px;">
+                  <button type="submit" class="btn btn-primary" style="flex:1;">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">cloud_sync</span>
+                    <span>Deploy Policy to CRUSH Map</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary" onclick="resetPolicyForm()">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">restart_alt</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Full Replication vs Erasure Coding Trade-Off Comparison Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="material-symbols-outlined">balance</span>
+                <span>Architectural Trade-Off Matrix: Full Replication (3x) vs Erasure Coding (6+3)</span>
+              </div>
+              <span class="font-mono text-xs text-muted">Baseline Scenario: Storing 1.00 GiB Original Payload</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);" class="comparison-grid">
+              <!-- Full Replication Card -->
+              <div style="background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-lg); border:1px solid var(--border-subtle); display:flex; flex-direction:column; justify-content:space-between; gap:12px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span class="font-bold text-md flex items-center gap-1">
+                      <span class="material-symbols-outlined text-muted" style="font-size:18px;">content_copy</span>
+                      Full Replication (3x Multi-Copy)
+                    </span>
+                    <span class="status-pill warning">200% Overhead</span>
+                  </div>
+                  <p class="text-sm text-secondary">
+                    Triplicate object instances mirrored identically across distinct fault zones. Zero compute overhead on read/write path.
+                  </p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                    <span>Required Raw Footprint:</span>
+                    <strong class="text-primary font-bold">3.00 GiB Total</strong>
+                  </div>
+                  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:4px; height:24px; font-family:var(--font-mono); font-size:0.6875rem; text-align:center;">
+                    <div style="background:var(--surface-high); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">Copy 1</div>
+                    <div style="background:var(--surface-high); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">Copy 2</div>
+                    <div style="background:var(--surface-high); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">Copy 3</div>
+                  </div>
+                  <div style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+                    <span>Write Amplification: 3.0x</span>
+                    <span class="text-emerald">Read Compute: 0 µs</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Erasure Coding Card -->
+              <div style="background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-lg); border:1px solid rgba(0, 240, 208, 0.3); display:flex; flex-direction:column; justify-content:space-between; gap:12px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span class="font-bold text-md text-cyan flex items-center gap-1">
+                      <span class="material-symbols-outlined text-cyan" style="font-size:18px;">grid_4x4</span>
+                      Erasure Coding (RS 6+3)
+                    </span>
+                    <span class="status-pill active">50% Overhead (Optimal)</span>
+                  </div>
+                  <p class="text-sm text-secondary">
+                    Payload fragmented into 6 data shards + 3 Reed-Solomon parity vectors. Survives any 3 concurrent node outages with 75% less storage waste.
+                  </p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem;">
+                    <span>Required Raw Footprint:</span>
+                    <strong class="text-cyan font-bold">1.50 GiB Total (Save 50%)</strong>
+                  </div>
+                  <div style="display:grid; grid-template-columns: repeat(9, 1fr); gap:2px; height:24px; font-family:var(--font-mono); font-size:0.625rem; text-align:center;">
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D1</div>
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D2</div>
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D3</div>
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D4</div>
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D5</div>
+                    <div style="background:var(--cyan-subtle); color:var(--cyan-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">D6</div>
+                    <div style="background:var(--emerald-subtle); color:var(--emerald-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">P1</div>
+                    <div style="background:var(--emerald-subtle); color:var(--emerald-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">P2</div>
+                    <div style="background:var(--emerald-subtle); color:var(--emerald-bright); border-radius:var(--radius-xs); display:flex; align-items:center; justify-content:center;">P3</div>
+                  </div>
+                  <div style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+                    <span>Write Amplification: 1.5x</span>
+                    <span class="text-cyan">AVX-512 SIMD Galois Compute</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 3: BACKGROUND REBALANCING (Requirement 2)
+             ========================================================================== -->
+        <section class="view-panel" id="view-rebalancing">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Storage Fabric Subsystem 09</span>
+                  <span>/</span>
+                  <span class="highlight">CRUSH Map Epoch: 4,891,208</span>
+                </div>
+                <h1 class="view-title">Background Rebalancing & Data Migration Engine</h1>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="status-pill active">
+                  <span class="status-beacon"></span>
+                  <span id="rebal-engine-status">BALANCING ACTIVE (4 Streams)</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-toggle-engine" onclick="toggleRebalanceEngine()">
+                  <span class="material-symbols-outlined" style="font-size:16px;">pause_circle</span>
+                  <span id="btn-engine-label">Hold Engine</span>
+                </button>
+              </div>
+            </div>
+            <p class="view-desc">
+              Autonomous placement group migration, capacity skew equalization, and foreground I/O bandwidth throttling.
+            </p>
+          </div>
+
+          <!-- Rebalancing KPI Strip -->
+          <div class="grid-kpi-4">
+            <div class="kpi-tile">
+              <span class="kpi-label">Cluster Skew Variance</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-cyan">3.8%</span>
+                <span class="kpi-delta pos">from 18.4%</span>
+              </div>
+              <div class="progress-track" style="margin: 6px 0;">
+                <div class="progress-fill cyan" style="width: 82%;"></div>
+              </div>
+              <span class="kpi-sub">Target: &lt; 2.0% standard deviation</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Rebalance Throughput</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-teal" id="rebal-throughput-kpi">420 MB/s</span>
+                <span class="status-pill active" style="font-size:0.6rem;">Throttled</span>
+              </div>
+              <div class="progress-track" style="margin: 6px 0;">
+                <div class="progress-fill teal" style="width: 93%;" id="rebal-throughput-bar"></div>
+              </div>
+              <span class="kpi-sub" id="rebal-governor-tag">Spine Budget Cap: 10% (450 MB/s)</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Total Volume Migrated</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value">12.4 TB</span>
+                <span class="text-muted font-mono text-sm">/ 18.2 TB</span>
+              </div>
+              <div class="progress-track" style="margin: 6px 0;">
+                <div class="progress-fill emerald" style="width: 68.1%;"></div>
+              </div>
+              <span class="kpi-sub">2,912 / 4,280 Shards Completed</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Estimated Time to Balance</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald" id="rebal-eta-val">04h 12m</span>
+                <span class="kpi-delta pos">±4m drift</span>
+              </div>
+              <div class="progress-track" style="margin: 6px 0;">
+                <div class="progress-fill emerald" style="width: 58%;"></div>
+              </div>
+              <span class="kpi-sub">Convergence ETA Window</span>
+            </div>
+          </div>
+
+          <!-- Global Foreground I/O Governor Control Module (Bandwidth Slider) -->
+          <div class="card focal-card" style="margin-bottom: var(--space-xl);">
+            <div class="card-header">
+              <div>
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-cyan">tune</span>
+                  <span>Global Foreground I/O Governor (Adaptive cgroups v2)</span>
+                </div>
+                <p class="text-sm text-secondary" style="margin-top:2px;">
+                  Enforces asynchronous IOPS ceilings across high-density storage nodes to prevent degradation of customer S3 reads/writes.
+                </p>
+              </div>
+              <!-- Presets -->
+              <div style="display:flex; gap:4px;">
+                <button class="btn btn-secondary btn-sm" onclick="setThrottlePreset(5)">Conservative 5%</button>
+                <button class="btn btn-primary btn-sm" onclick="setThrottlePreset(10)" id="preset-10">Balanced 10% (Rec)</button>
+                <button class="btn btn-secondary btn-sm" onclick="setThrottlePreset(25)">Aggressive 25%</button>
+                <button class="btn btn-danger btn-sm" onclick="setThrottlePreset(0)">Emergency Pause 0%</button>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 3fr 2fr; gap:var(--space-lg); align-items:center;" class="governor-inner-grid">
+              <div style="background: var(--surface-low); padding: 14px; border-radius: var(--radius-md); border:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="font-mono text-sm text-secondary">Dynamic Bandwidth Ceiling:</span>
+                  <span class="status-pill active" id="throttle-pct-text">10% of cluster bandwidth (450 MB/s cap)</span>
+                </div>
+                <input type="range" id="throttle-slider" min="0" max="50" value="10" step="1" oninput="handleThrottleChange(this.value)">
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.6875rem; color:var(--text-muted);">
+                  <span>0% (Paused)</span>
+                  <span class="text-cyan">10% (Default)</span>
+                  <span>25% (Maintenance)</span>
+                  <span>50% (Max Ceiling)</span>
+                </div>
+              </div>
+
+              <!-- Real-Time Protection Signals -->
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                <div class="kpi-tile" style="padding:8px 10px; background:var(--surface-low);">
+                  <span class="kpi-label" style="font-size:0.625rem;">Client P99 Impact</span>
+                  <span class="font-mono text-emerald font-bold text-md">+0.4 ms</span>
+                  <span class="font-mono text-xs text-muted">&lt;1.5ms SLA Guard</span>
+                </div>
+                <div class="kpi-tile" style="padding:8px 10px; background:var(--surface-low);">
+                  <span class="kpi-label" style="font-size:0.625rem;">Backpressure Drops</span>
+                  <span class="font-mono text-cyan font-bold text-md">0 pkts</span>
+                  <span class="font-mono text-xs text-muted">Zero buffer loss</span>
+                </div>
+                <div class="kpi-tile" style="padding:8px 10px; background:var(--surface-low);">
+                  <span class="kpi-label" style="font-size:0.625rem;">Foreground S3 IOPS</span>
+                  <span class="font-mono text-primary font-bold text-md">398,410 /s</span>
+                  <span class="font-mono text-xs text-emerald">Zero Degradation</span>
+                </div>
+                <div class="kpi-tile" style="padding:8px 10px; background:var(--surface-low);">
+                  <span class="kpi-label" style="font-size:0.625rem;">Active Spine Links</span>
+                  <span class="font-mono text-teal font-bold text-md">8 × 100 GbE</span>
+                  <span class="font-mono text-xs text-muted">14.2% Utilization</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Rebalancing Jobs Table -->
+          <div class="card" style="margin-bottom: var(--space-xl);">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="material-symbols-outlined">swap_horiz</span>
+                <span>Active Point-to-Point Rebalancing Migrations</span>
+              </div>
+              <span class="font-mono text-xs text-muted">Parallel Workers: 16 · Auto-Retry Enabled</span>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Job ID</th>
+                    <th>Routing Topology (Source → Target)</th>
+                    <th>PG / Shard</th>
+                    <th>Payload Volume</th>
+                    <th style="min-width: 180px;">Progress & Moved</th>
+                    <th>Throughput</th>
+                    <th>ETA</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="rebal-jobs-tbody">
+                  <tr>
+                    <td class="text-cyan font-bold">REBAL-9041</td>
+                    <td><span class="font-mono">node-va-04 (VA) → <strong class="text-cyan">node-va-12 (VA)</strong></span></td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">pg.4412_ec63</span></td>
+                    <td>4.2 TB</td>
+                    <td>
+                      <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:2px;">
+                        <span class="text-cyan font-bold">74%</span>
+                        <span class="text-muted">3.1 TB moved</span>
+                      </div>
+                      <div class="progress-track"><div class="progress-fill cyan" style="width: 74%;"></div></div>
+                    </td>
+                    <td class="text-teal font-bold">124 MB/s</td>
+                    <td class="text-emerald">01h 04m</td>
+                    <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                  </tr>
+                  <tr>
+                    <td class="text-cyan font-bold">REBAL-9042</td>
+                    <td><span class="font-mono">node-eu-02 (FRA) → <strong class="text-cyan">node-eu-08 (FRA)</strong></span></td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">pg.1098_rep3</span></td>
+                    <td>2.8 TB</td>
+                    <td>
+                      <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:2px;">
+                        <span class="text-cyan font-bold">52%</span>
+                        <span class="text-muted">1.45 TB moved</span>
+                      </div>
+                      <div class="progress-track"><div class="progress-fill cyan" style="width: 52%;"></div></div>
+                    </td>
+                    <td class="text-teal font-bold">98 MB/s</td>
+                    <td class="text-emerald">02h 18m</td>
+                    <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                  </tr>
+                  <tr>
+                    <td class="text-cyan font-bold">REBAL-9043</td>
+                    <td><span class="font-mono">node-va-01 (VA) → <strong class="text-cyan">node-va-11 (VA)</strong></span></td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">pg.8812_ec84</span></td>
+                    <td>3.6 TB</td>
+                    <td>
+                      <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:2px;">
+                        <span class="text-cyan font-bold">89%</span>
+                        <span class="text-muted">3.2 TB moved</span>
+                      </div>
+                      <div class="progress-track"><div class="progress-fill cyan" style="width: 89%;"></div></div>
+                    </td>
+                    <td class="text-teal font-bold">110 MB/s</td>
+                    <td class="text-emerald">00h 28m</td>
+                    <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                  </tr>
+                  <tr>
+                    <td class="text-cyan font-bold">REBAL-9044</td>
+                    <td><span class="font-mono">node-eu-05 (FRA) → <strong class="text-cyan">node-eu-07 (FRA)</strong></span></td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">pg.3391_ec63</span></td>
+                    <td>1.8 TB</td>
+                    <td>
+                      <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:2px;">
+                        <span class="text-cyan font-bold">31%</span>
+                        <span class="text-muted">0.55 TB moved</span>
+                      </div>
+                      <div class="progress-track"><div class="progress-fill cyan" style="width: 31%;"></div></div>
+                    </td>
+                    <td class="text-teal font-bold">88 MB/s</td>
+                    <td class="text-emerald">03h 40m</td>
+                    <td><span class="status-pill healthy"><span class="status-beacon"></span>ACTIVE</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Capacity Distribution Before/After Chart & Trigger Reason Log -->
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:var(--space-xl);" class="rebal-bottom-grid">
+
+            <!-- Capacity Distribution Chart -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">equalizer</span>
+                  <span>Capacity Distribution & Node Skew Realignment</span>
+                </div>
+                <div style="display:flex; gap:12px; font-family:var(--font-mono); font-size:0.75rem;">
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; background:var(--surface-highest); border-radius:2px;"></span> Pre-Rebalance</span>
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; background:var(--cyan-primary); border-radius:2px;"></span> Realigned</span>
+                </div>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <!-- Node 04: Hot spot -->
+                <div style="background:var(--surface-low); padding:10px 12px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.75rem;">
+                    <span class="text-primary font-bold">node-va-04 <span class="status-pill warning" style="font-size:0.6rem;">HOT SPOT MITIGATED</span></span>
+                    <span><span class="text-muted" style="text-decoration:line-through;">94%</span> → <strong class="text-cyan">71% Fill</strong> (Target: 68%)</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; height:12px;">
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:94%; height:100%; background:var(--text-muted);"></div></div>
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:71%; height:100%; background:var(--cyan-primary);"></div></div>
+                  </div>
+                </div>
+
+                <!-- Node 12: Under-utilized expansion -->
+                <div style="background:var(--surface-low); padding:10px 12px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.75rem;">
+                    <span class="text-primary font-bold">node-va-12 <span class="status-pill healthy" style="font-size:0.6rem;">EXPANSION ABSORBING</span></span>
+                    <span><span class="text-muted" style="text-decoration:line-through;">12%</span> → <strong class="text-emerald">68% Balanced Target</strong></span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; height:12px;">
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:12%; height:100%; background:var(--text-muted);"></div></div>
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:68%; height:100%; background:var(--emerald-healthy);"></div></div>
+                  </div>
+                </div>
+
+                <!-- Node 02 -->
+                <div style="background:var(--surface-low); padding:10px 12px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.75rem;">
+                    <span class="text-primary font-bold">node-eu-02 <span class="status-pill active" style="font-size:0.6rem;">BALANCED PEER</span></span>
+                    <span><span class="text-muted" style="text-decoration:line-through;">88%</span> → <strong class="text-teal">69% Fill</strong></span>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; height:12px;">
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:88%; height:100%; background:var(--text-muted);"></div></div>
+                    <div style="background:var(--surface-highest); border-radius:2px; overflow:hidden;"><div style="width:69%; height:100%; background:var(--teal-bright);"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trigger-Reason Log -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">receipt_long</span>
+                  <span>Trigger Reason Log</span>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; font-family:var(--font-mono); font-size:0.75rem;">
+                <div style="background:var(--surface-low); padding:8px; border-radius:var(--radius-md); border-left:3px solid var(--amber-warning);">
+                  <div style="display:flex; justify-content:space-between; color:var(--amber-warning); font-weight:700;">
+                    <span>HOT_SPOT_MITIGATION</span>
+                    <span>14:20 UTC</span>
+                  </div>
+                  <p class="text-secondary text-xs" style="margin-top:2px;">OSD-04 NVMe fill exceeded 90% soft alarm. Auto-shedding 23 PGs to OSD-12.</p>
+                </div>
+
+                <div style="background:var(--surface-low); padding:8px; border-radius:var(--radius-md); border-left:3px solid var(--cyan-primary);">
+                  <div style="display:flex; justify-content:space-between; color:var(--cyan-primary); font-weight:700;">
+                    <span>CAPACITY_EXPANSION</span>
+                    <span>12:00 UTC</span>
+                  </div>
+                  <p class="text-secondary text-xs" style="margin-top:2px;">Rack-04 (Virginia) 4 new NVMe nodes joined CRUSH map epoch 4891200.</p>
+                </div>
+
+                <div style="background:var(--surface-low); padding:8px; border-radius:var(--radius-md); border-left:3px solid var(--emerald-healthy);">
+                  <div style="display:flex; justify-content:space-between; color:var(--emerald-healthy); font-weight:700;">
+                    <span>CRUSH_REWEIGHT_CONVERGE</span>
+                    <span>08:14 UTC</span>
+                  </div>
+                  <p class="text-secondary text-xs" style="margin-top:2px;">Equal weight optimization completed across European Availability Zones.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 4: METADATA CONSISTENCY & RAFT (Requirement 3)
+             ========================================================================== -->
+        <section class="view-panel" id="view-metadata">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>State Machine // Linearizable</span>
+                  <span>/</span>
+                  <span class="highlight">Raft Log Epoch: #94.4812</span>
+                </div>
+                <h1 class="view-title">Metadata Consistency & Raft Consensus Fabric</h1>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="status-pill healthy">
+                  <span class="status-beacon"></span>
+                  <span>Quorum State: 3/5 NODES AGREE · TERM 94</span>
+                </div>
+                <div class="status-pill active">
+                  <span class="material-symbols-outlined" style="font-size:14px;">verified_user</span>
+                  <span>Leader: meta-eu-01</span>
+                </div>
+              </div>
+            </div>
+            <p class="view-desc">
+              Distributed state machine quorum monitoring, leader election logs, and linearizable fsync leases across multi-region nodes.
+            </p>
+          </div>
+
+          <!-- Metadata Store Health Cards (4-Column Bento) -->
+          <div class="grid-kpi-4">
+            <!-- WAL Size & Ingest -->
+            <div class="kpi-tile">
+              <div class="kpi-top">
+                <span class="kpi-label">WAL Ingest Fabric</span>
+                <span class="material-symbols-outlined text-cyan">sync_saved_locally</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-cyan">342 MB</span>
+              </div>
+              <div style="margin:6px 0;">
+                <svg viewBox="0 0 200 30" style="width:100%; height:24px; overflow:visible;">
+                  <path d="M 0 25 L 20 20 L 40 22 L 60 12 L 80 16 L 100 8 L 120 12 L 140 6 L 160 10 L 180 4 L 200 8" fill="none" stroke="#00f0d0" stroke-width="1.8"/>
+                </svg>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Sync Rate: 1,420 entries/s</span>
+                <span class="text-emerald">fsync: 0.82 ms</span>
+              </div>
+            </div>
+
+            <!-- Snapshot & Checkpoint -->
+            <div class="kpi-tile">
+              <div class="kpi-top">
+                <span class="kpi-label">Snapshot & Checkpoint</span>
+                <span class="material-symbols-outlined text-teal">camera_roll</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-teal">1.84 GB</span>
+              </div>
+              <div class="progress-track" style="margin:6px 0;">
+                <div class="progress-fill teal" style="width: 82%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Last Snapshot: 12m ago</span>
+                <span class="text-teal">Next: in 48m</span>
+              </div>
+            </div>
+
+            <!-- Compaction Status & Inode Allocation -->
+            <div class="kpi-tile">
+              <div class="kpi-top">
+                <span class="kpi-label">Inode Allocations</span>
+                <span class="material-symbols-outlined text-emerald">account_tree</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald">84.19M</span>
+                <span class="kpi-delta pos">94.2% OPT</span>
+              </div>
+              <div class="progress-track" style="margin:6px 0;">
+                <div class="progress-fill emerald" style="width: 94.2%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Compaction: IDLE</span>
+                <span class="text-muted">B-Tree Depth: 4</span>
+              </div>
+            </div>
+
+            <!-- Consensus Topology -->
+            <div class="kpi-tile">
+              <div class="kpi-top">
+                <span class="kpi-label">Consensus Topology</span>
+                <span class="material-symbols-outlined text-primary">hub</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-primary">5/5 Live</span>
+                <span class="status-pill healthy" style="font-size:0.6rem;">Odd Ring</span>
+              </div>
+              <div style="display:flex; gap:6px; margin: 10px 0;">
+                <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+                <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+                <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+                <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+                <span class="status-beacon" style="background:var(--cyan-primary);"></span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Min Quorum: 3 nodes</span>
+                <span class="text-cyan">Heartbeat: 150ms</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consensus Cluster Node Status Table (Raft Ring) -->
+          <div class="card focal-card" style="margin-bottom: var(--space-xl);">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="material-symbols-outlined text-cyan">lan</span>
+                <span>Consensus Cluster Node Status (Raft Ring)</span>
+              </div>
+              <span class="font-mono text-xs text-muted">Protocol: Raft v3.2 · Strict Linearizability</span>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Node ID</th>
+                    <th>DC / Region</th>
+                    <th>Role</th>
+                    <th>Term</th>
+                    <th>Commit Index</th>
+                    <th>Replication Lag</th>
+                    <th>Fsync Latency</th>
+                    <th>State</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-cyan font-bold"><span class="status-beacon" style="background:var(--cyan-primary);"></span> meta-eu-01</td>
+                    <td>Frankfurt (AZ-1)</td>
+                    <td><span class="status-pill active">Leader (Auth)</span></td>
+                    <td>Term 94</td>
+                    <td class="font-bold">89,412,901</td>
+                    <td class="text-emerald font-bold">0.0 ms</td>
+                    <td>0.81 ms</td>
+                    <td><span class="status-pill healthy">HEALTHY (VOTING)</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="status-beacon" style="background:var(--emerald-healthy);"></span> meta-eu-02</td>
+                    <td>Frankfurt (AZ-2)</td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">Follower</span></td>
+                    <td>Term 94</td>
+                    <td>89,412,901</td>
+                    <td class="text-emerald">1.2 ms</td>
+                    <td>0.84 ms</td>
+                    <td><span class="status-pill healthy">HEALTHY (VOTING)</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="status-beacon" style="background:var(--emerald-healthy);"></span> meta-eu-03</td>
+                    <td>Frankfurt (AZ-3)</td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">Follower</span></td>
+                    <td>Term 94</td>
+                    <td>89,412,899</td>
+                    <td class="text-emerald">3.4 ms</td>
+                    <td>0.88 ms</td>
+                    <td><span class="status-pill healthy">HEALTHY (VOTING)</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="status-beacon" style="background:var(--teal-bright);"></span> meta-va-01</td>
+                    <td>Virginia (AZ-1)</td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">Follower</span></td>
+                    <td>Term 94</td>
+                    <td>89,412,895</td>
+                    <td class="text-teal">42.1 ms (WAN)</td>
+                    <td>0.92 ms</td>
+                    <td><span class="status-pill healthy">HEALTHY (VOTING)</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="status-beacon" style="background:var(--teal-bright);"></span> meta-va-02</td>
+                    <td>Virginia (AZ-2)</td>
+                    <td><span class="status-pill" style="background:var(--surface-high);">Follower</span></td>
+                    <td>Term 94</td>
+                    <td>89,412,892</td>
+                    <td class="text-teal">44.8 ms (WAN)</td>
+                    <td>0.95 ms</td>
+                    <td><span class="status-pill healthy">HEALTHY (VOTING)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Split Panel: Consistency Incident Timeline vs Fast Actions -->
+          <div style="display:grid; grid-template-columns: 3fr 2fr; gap:var(--space-xl);" class="meta-split-grid">
+            <!-- Consistency Incident Log -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">reorder</span>
+                  <span>Consistency Incidents & Transition Log</span>
+                </div>
+                <span class="font-mono text-xs text-muted">Live Ring Journal</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; font-family:var(--font-mono); font-size:0.75rem;">
+                <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; gap:8px;">
+                  <span class="text-emerald font-bold">[15:06 UTC]</span>
+                  <span>Metadata quorum restored in 1.4s — Term 94 elected with unanimous voter quorum</span>
+                </div>
+                <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; gap:8px;">
+                  <span class="text-red font-bold">[14:52 UTC]</span>
+                  <span>Split-brain detected — stale leader fenced (<strong class="text-red">us-east-dc3 lease revoked</strong> via STONITH)</span>
+                </div>
+                <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; gap:8px;">
+                  <span class="text-teal font-bold">[14:48 UTC]</span>
+                  <span>WAN partition event: Trans-Atlantic transit severed, Virginia metadata replicas entered catchup mode</span>
+                </div>
+                <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; gap:8px;">
+                  <span class="text-muted font-bold">[12:30 UTC]</span>
+                  <span>Scheduled Raft snapshot #894 compacted — 4.2 GB log truncated to 1.84 GB state image</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fast Actions & Audit Tools -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-teal">bolt</span>
+                  <span>Fast Control Plane Actions</span>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Raft Snapshot #895 triggered successfully.', 'success')">
+                  <span class="material-symbols-outlined text-cyan">camera</span>
+                  <div style="text-align:left; margin-left:6px;">
+                    <div style="font-weight:600;">Trigger Manual Raft Snapshot</div>
+                    <div class="font-mono text-xs text-muted">Enforce state compaction</div>
+                  </div>
+                </button>
+                <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Initiating safe leader handover to meta-eu-02...', 'warn')">
+                  <span class="material-symbols-outlined text-teal">swap_horiz</span>
+                  <div style="text-align:left; margin-left:6px;">
+                    <div style="font-weight:600;">Step Down Leader (Safe Handover)</div>
+                    <div class="font-mono text-xs text-muted">Transfer Term 94 to meta-eu-02</div>
+                  </div>
+                </button>
+                <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showToast('Merkle tree root signature 0x9f81a7b9 verified 100% valid.', 'success')">
+                  <span class="material-symbols-outlined text-emerald">shield</span>
+                  <div style="text-align:left; margin-left:6px;">
+                    <div style="font-weight:600;">Verify Inode Merkle Proofs</div>
+                    <div class="font-mono text-xs text-muted">Traverse 84M inode records</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 5: FAILURE SIMULATOR & CHAOS SANDBOX (Requirement 6)
+             ========================================================================== -->
+        <section class="view-panel" id="view-failure-sim">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Isolated Benchmark Workspace</span>
+                  <span>/</span>
+                  <span class="highlight">Sandbox ID: sim-v4-992a</span>
+                </div>
+                <h1 class="view-title">Distributed Chaos & Fault Injection Sandbox</h1>
+              </div>
+              <div class="status-pill active">
+                <span class="status-beacon"></span>
+                <span>Safe Mode Active · Autonomous Failover Armed</span>
+              </div>
+            </div>
+            <p class="view-desc">
+              Simulate storage node crash, asymmetric network partitioning, silent bit-rot data corruption, and disk I/O degradation. Observe real-time quorum consensus, erasure-code reconstruction, and autonomous self-healing.
+            </p>
+          </div>
+
+          <!-- Interactive Chaos Action Deck -->
+          <div class="card" style="margin-bottom: var(--space-md);">
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-md);">
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="btn btn-danger" onclick="triggerChaos('kill')">
+                  <span class="material-symbols-outlined">power_off</span>
+                  <span>Kill Storage Node [K]</span>
+                </button>
+                <button class="btn btn-secondary" onclick="triggerChaos('partition')">
+                  <span class="material-symbols-outlined text-teal">device_hub</span>
+                  <span>Simulate Partition [P]</span>
+                </button>
+                <button class="btn btn-secondary" onclick="triggerChaos('bitrot')">
+                  <span class="material-symbols-outlined text-amber">dangerous</span>
+                  <span>Corrupt Object Block [C]</span>
+                </button>
+                <button class="btn btn-secondary" onclick="triggerChaos('latency')">
+                  <span class="material-symbols-outlined text-cyan">speed</span>
+                  <span>Inject Latency [L]</span>
+                </button>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-primary" onclick="restoreClusterSimulation()">
+                  <span class="material-symbols-outlined">restart_alt</span>
+                  <span>Restore All Nodes & Quorum</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEDICATED MTTR & REPAIR OVERHEAD METRICS STRIP (Requirement 6) -->
+          <div class="metrics-strip" style="margin-bottom: var(--space-xl);">
+            <!-- MTTR Average -->
+            <div class="metrics-strip-item">
+              <div class="strip-icon cyan">
+                <span class="material-symbols-outlined">speed</span>
+              </div>
+              <div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span class="kpi-label">MTTR Average</span>
+                  <span class="status-beacon" style="background:var(--emerald-healthy);"></span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:6px;">
+                  <span class="font-mono font-bold text-cyan text-xl" id="mttr-val">2.4s</span>
+                  <span class="font-mono text-xs text-muted">P99: 3.1s DMA parity</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Repair Traffic Overhead % -->
+            <div class="metrics-strip-item">
+              <div class="strip-icon teal">
+                <span class="material-symbols-outlined">network_check</span>
+              </div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="kpi-label">Repair Traffic Overhead</span>
+                  <span class="font-mono text-teal text-xs font-bold" id="repair-oh-label">3.8% / 10% cap</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:6px; margin:2px 0;">
+                  <span class="font-mono font-bold text-teal text-xl" id="repair-oh-val">3.8%</span>
+                  <span class="font-mono text-xs text-muted">Spine throttle guard</span>
+                </div>
+                <div class="progress-track" style="height:4px;"><div class="progress-fill teal" style="width:38%;" id="repair-oh-bar"></div></div>
+              </div>
+            </div>
+
+            <!-- Data at Risk % -->
+            <div class="metrics-strip-item">
+              <div class="strip-icon emerald">
+                <span class="material-symbols-outlined">shield</span>
+              </div>
+              <div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span class="kpi-label">Data at Risk</span>
+                  <span class="status-pill healthy" style="font-size:0.55rem; padding:0 4px;">Guaranteed</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:6px;">
+                  <span class="font-mono font-bold text-emerald text-xl" id="data-risk-val">0.000%</span>
+                  <span class="font-mono text-xs text-muted">RS 8+4 durability</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Incident Status & Live Self-Healing 4-Step Pipeline -->
+          <div class="card primary-focal-card" style="margin-bottom: var(--space-xl);" id="sim-incident-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined text-cyan" id="sim-banner-icon">healing</span>
+                <span class="font-bold text-md" id="sim-banner-title">Autonomous Self-Healing Pipeline Progress</span>
+              </div>
+              <span class="status-pill active" id="sim-pipeline-status">Step 3 of 4: Parity Re-computation (74%)</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:var(--space-sm); margin-bottom:12px;">
+              <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined text-emerald" style="font-size:20px;">check_circle</span>
+                <div>
+                  <div class="font-bold text-xs text-primary">1. Fault Detected</div>
+                  <div class="font-mono text-xs text-muted">0.4s elapsed</div>
+                </div>
+              </div>
+              <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined text-emerald" style="font-size:20px;">check_circle</span>
+                <div>
+                  <div class="font-bold text-xs text-primary">2. Quorum Established</div>
+                  <div class="font-mono text-xs text-muted">0.8s (127/128 vote)</div>
+                </div>
+              </div>
+              <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; flex-direction:column; justify-content:center; gap:4px; border:1px solid rgba(15,118,110,0.3);">
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem;">
+                  <span class="text-cyan font-bold">3. Rebuilding Parity</span>
+                  <span class="font-mono text-cyan" id="sim-step3-pct">74%</span>
+                </div>
+                <div class="progress-track" style="height:4px;"><div class="progress-fill cyan" style="width:74%;" id="sim-step3-bar"></div></div>
+              </div>
+              <div style="background:var(--surface-low); padding:10px; border-radius:var(--radius-md); display:flex; align-items:center; gap:8px; opacity:0.6;">
+                <span class="material-symbols-outlined text-muted" style="font-size:20px;">hourglass_empty</span>
+                <div>
+                  <div class="font-bold text-xs text-muted">4. Verified & Sync</div>
+                  <div class="font-mono text-xs text-muted">Pending completion</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:var(--surface-low); border: 1px solid var(--border-subtle); padding:8px 12px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:0.75rem; color:var(--text-secondary); display:flex; justify-content:space-between;">
+              <span class="text-emerald font-bold">Target recovery window: ~3.2s — Reed-Solomon Parity matrix active (0 bytes lost)</span>
+              <span class="text-muted">SIMD Galois Engine: SHA-256</span>
+            </div>
+          </div>
+
+          <!-- 4-Rack Fault Topology & Simulation Terminal -->
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:var(--space-xl);" class="sim-bottom-grid">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">hub</span>
+                  <span>Fault Injection 4-Rack Topology Map</span>
+                </div>
+                <span class="font-mono text-xs text-muted">Click node to inspect or isolate</span>
+              </div>
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:var(--space-md);" id="sim-racks-container">
+                <!-- Racks 01 to 04 rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Terminal Feed -->
+            <div class="card" style="display:flex; flex-direction:column;">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined">terminal</span>
+                  <span>Chaos Incident Stream</span>
+                </div>
+                <span class="status-pill active" style="font-size:0.6rem;">tail -f</span>
+              </div>
+              <div class="terminal-body" style="flex:1; max-height:360px;" id="sim-terminal-log">
+                <!-- Log entries added dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 6: BYZANTINE BIT-ROT & CRYPTOGRAPHIC DRILL (Requirement 5)
+             ========================================================================== -->
+        <section class="view-panel" id="view-bitrot">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Incident Forensics</span>
+                  <span>/</span>
+                  <span class="highlight">Grounded Triage Drill</span>
+                </div>
+                <h1 class="view-title text-red">
+                  <span class="material-symbols-outlined text-red" style="font-size:32px;">dangerous</span>
+                  Bitrot Detected — Checksum Mismatch
+                </h1>
+              </div>
+              <div class="status-pill critical">
+                <span class="status-beacon"></span>
+                <span>Byzantine Quarantine Active</span>
+              </div>
+            </div>
+            <p class="view-desc">
+              Grounded incident flow: Silent hardware corruption triage on NVMe block <code class="font-mono text-red">obj_94a7e21c</code> at offset <code class="font-mono text-primary">0x4F80</code>.
+            </p>
+          </div>
+
+          <!-- Incident Summary Banner -->
+          <div class="card" style="border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.05); margin-bottom: var(--space-xl);">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="status-pill critical">SILENT HARDWARE BIT-FLIP DETECTED</span>
+                <span class="font-mono text-xs text-muted">Resolution Timestamp: <strong class="text-primary font-bold" id="bitrot-res-time">14:45:10.290 UTC</strong></span>
+              </div>
+              <p class="text-secondary text-sm">
+                During peak 48.2k IOPS write burst, <strong class="text-primary">Node-11</strong> (Rack-03 / Zone <span class="text-cyan">us-east-2c</span>) computed BLAKE3 hash mismatch against Merkle root. Hardware flipped 3 consecutive bits (<code class="font-mono text-red bg-surface-high px-1 rounded">0x00FF -&gt; 0x00A3</code>). Byzantine fault quarantined before propagating to read cache or Raft write replicas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Expected vs Actual Computed Hash Inspector -->
+          <div class="card focal-card" style="margin-bottom: var(--space-xl);">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="material-symbols-outlined text-cyan">fingerprint</span>
+                <span>Cryptographic Hash Verification & Bitmask Diff</span>
+              </div>
+              <span class="font-mono text-xs text-cyan">BLAKE3 256-Bit Tree Root</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-md); margin-bottom:var(--space-md);" class="hash-diff-grid">
+              <!-- Expected Valid Hash -->
+              <div style="background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-md); border:1px solid var(--emerald-healthy);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <span class="kpi-label text-emerald">Expected Merkle Root Hash (Valid)</span>
+                  <span class="status-pill healthy" style="font-size:0.6rem;">MATCHES TREE</span>
+                </div>
+                <p class="font-mono text-emerald text-sm break-all" style="background:#ffffff; border:1px solid #bbf7d0; padding:8px; border-radius:4px;">
+                  9f0187ba42e88a01cd2078b66e1335198ad
+                </p>
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-top:6px;">
+                  <span>Bitmask: <code class="text-emerald font-bold">11111111</code></span>
+                  <span>Offset: 0x4F80</span>
+                </div>
+              </div>
+
+              <!-- Actual Hardware Damaged Hash -->
+              <div style="background:var(--surface-low); padding:var(--space-md); border-radius:var(--radius-md); border:1px solid var(--red-critical);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <span class="kpi-label text-red">Actual Hardware Hash (Node-11 Damaged)</span>
+                  <span class="status-pill critical" style="font-size:0.6rem;">MISMATCH</span>
+                </div>
+                <p class="font-mono text-red text-sm break-all" style="background:#ffffff; border:1px solid #fecaca; padding:8px; border-radius:4px;">
+                  9f0187ff42e88a01cd2078b66e1335198ad
+                </p>
+                <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-top:6px;">
+                  <span>Bitmask: <code class="text-red font-bold">10100011</code></span>
+                  <span class="text-red font-bold">3-Bit Flip Drift</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reed-Solomon Auto-Reconstruction Bar -->
+            <div style="background:var(--surface-low); border:1px solid var(--border-subtle); padding:14px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="font-mono text-sm text-primary font-bold">Autonomous Galois Field Re-read & Re-verification</span>
+                <span class="status-pill healthy" id="bitrot-heal-status">100% Corrected (0.32s)</span>
+              </div>
+              <div class="progress-track" style="height:8px;"><div class="progress-fill emerald" style="width:100%;" id="bitrot-heal-bar"></div></div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">
+                <span>Donor Matrix: Nodes 01–08 Online</span>
+                <span class="text-emerald font-bold">Zero read impact · Silent correction complete</span>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
+              <button class="btn btn-secondary btn-sm" onclick="showToast('Hex diff: 0x4F80: 0xFF -&gt; 0xA3 verified.', 'info')">
+                <span class="material-symbols-outlined" style="font-size:14px;">difference</span>
+                <span>Hex Diff</span>
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="showToast('Node-11 disk quarantined from read pool.', 'error')">
+                <span class="material-symbols-outlined" style="font-size:14px;">block</span>
+                <span>Quarantine Disk</span>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="replayBitrotDrill()">
+                <span class="material-symbols-outlined" style="font-size:14px;">replay</span>
+                <span>Re-Run Scrub & Repair Drill</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             VIEW 7: CLUSTER TOPOLOGY & CRUSH MAP
+             ========================================================================== -->
+        <section class="view-panel" id="view-topology">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Cluster Physical Layout</span>
+                  <span>/</span>
+                  <span class="highlight">Hierarchy & Failure Domains</span>
+                </div>
+                <h1 class="view-title">Cluster Topology & CRUSH Tree Map</h1>
+              </div>
+              <div class="status-pill healthy">
+                <span class="status-beacon"></span>
+                <span>128 OSD Daemons Nominal</span>
+              </div>
+            </div>
+            <p class="view-desc">
+              Hierarchical bucket weights, fault domain anti-affinity mapping across regional multi-AZ datacenters.
+            </p>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:var(--space-lg);">
+            <!-- DC 1 -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-cyan">domain</span>
+                  <span>us-east-dc3 (Virginia Primary)</span>
+                </div>
+                <span class="status-pill healthy">64 Nodes</span>
+              </div>
+              <p class="text-sm text-secondary" style="margin-bottom:12px;">4 Racks · 3x Multi-AZ Anti-Affinity · 8.2 PB Capacity</p>
+              <div class="progress-track" style="margin-bottom:6px;"><div class="progress-fill cyan" style="width: 72%;"></div></div>
+              <span class="font-mono text-xs text-muted">72% Allocated · 0 Offline</span>
+            </div>
+
+            <!-- DC 2 -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-teal">domain</span>
+                  <span>eu-central-dc1 (Frankfurt Secondary)</span>
+                </div>
+                <span class="status-pill healthy">48 Nodes</span>
+              </div>
+              <p class="text-sm text-secondary" style="margin-bottom:12px;">3 Racks · Cross-Region Mirror · 4.8 PB Capacity</p>
+              <div class="progress-track" style="margin-bottom:6px;"><div class="progress-fill teal" style="width: 65%;"></div></div>
+              <span class="font-mono text-xs text-muted">65% Allocated · 0 Offline</span>
+            </div>
+
+            <!-- DC 3 -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="material-symbols-outlined text-emerald">domain</span>
+                  <span>ap-northeast-dc1 (Tokyo Edge)</span>
+                </div>
+                <span class="status-pill healthy">16 Nodes</span>
+              </div>
+              <p class="text-sm text-secondary" style="margin-bottom:12px;">1 Rack · Edge Read Cache · 1.8 PB Capacity</p>
+              <div class="progress-track" style="margin-bottom:6px;"><div class="progress-fill emerald" style="width: 48%;"></div></div>
+              <span class="font-mono text-xs text-muted">48% Allocated · 0 Offline</span>
+            </div>
+          </div>
+
+          <!-- OSD Storage Daemons Matrix & CRUSH Leaf Nodes -->
+          <div class="card focal-card" style="margin-top: var(--space-xl);">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="material-symbols-outlined text-cyan">dns</span>
+                <span>Storage Daemons Inventory & CRUSH Leaf Nodes</span>
+              </div>
+              <span class="font-mono text-xs text-muted">16 Active OSD Instances · Click Row to Inspect</span>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>OSD Daemon</th>
+                    <th>Zone & Rack</th>
+                    <th>Status</th>
+                    <th>NVMe Fill %</th>
+                    <th>Live IOPS</th>
+                    <th>Temperature</th>
+                    <th>Endurance</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="topology-osd-table-body">
+                  <!-- Populated dynamically by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 8: AUDIT LOG & FORENSIC TRAIL (Requirement: Audit Log)
+             ========================================================================== -->
+        <section class="view-panel" id="view-audit">
+          <div class="view-header">
+            <div class="view-header-top">
+              <div>
+                <div class="breadcrumb">
+                  <span>Fabric Governance & Security</span>
+                  <span>/</span>
+                  <span class="highlight">Forensic Trail: Merkle Tree Verified</span>
+                </div>
+                <h1 class="view-title">
+                  Audit Log & Forensic Activity Trail
+                  <span class="text-secondary font-normal text-lg">Immutable Cluster Journal</span>
+                </h1>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="status-pill healthy">
+                  <span class="status-beacon"></span>
+                  <span>Merkle Signature: 0x9f81a7b9 VALID</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-refresh-audit" onclick="refreshAuditView()">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">refresh</span>
+                  <span>Refresh</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-export-audit-csv" onclick="exportAuditLog('csv')">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">download</span>
+                  <span>Export CSV</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="btn-export-audit-json" onclick="exportAuditLog('json')">
+                  <span class="material-symbols-outlined" style="font-size: 16px;">data_object</span>
+                  <span>Export JSON</span>
+                </button>
+              </div>
+            </div>
+            <p class="view-desc">
+              Cluster actions, policy changes, and access events. Cryptographically signed ledger capturing administrative commands, automated self-healing triggers, and quorum transitions.
+            </p>
+          </div>
+
+          <!-- Top Strip Audit KPI Cards -->
+          <div class="grid-kpi-4" style="margin-bottom: var(--space-lg);">
+            <div class="kpi-tile">
+              <span class="kpi-label">Total Logged Events</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-cyan" id="audit-kpi-total">14,291</span>
+                <span class="kpi-delta pos">+18 past hr</span>
+              </div>
+              <span class="kpi-sub">Strict Append-Only Ledger</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Active Actors</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-teal">6 Services</span>
+                <span class="kpi-delta pos">2 Admins</span>
+              </div>
+              <span class="kpi-sub">RBAC & Service Accounts</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Policy & Config Deltas</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-primary" id="audit-kpi-policy-changes">12 Recorded</span>
+                <span class="status-pill healthy" style="font-size: 0.6rem; padding: 0 4px;">Audited</span>
+              </div>
+              <span class="kpi-sub">CRUSH & Durability Rules</span>
+            </div>
+
+            <div class="kpi-tile">
+              <span class="kpi-label">Integrity Status</span>
+              <div class="kpi-value-row">
+                <span class="kpi-value text-emerald">100.0%</span>
+                <span class="kpi-delta pos">Verified</span>
+              </div>
+              <span class="kpi-sub">Zero Tamper / Merkle Seal OK</span>
+            </div>
+          </div>
+
+          <!-- Main Audit Card -->
+          <div class="card focal-card">
+            <!-- Toolbar -->
+            <div class="audit-toolbar">
+              <!-- Search Box -->
+              <div class="search-bar-wrap" style="flex: 1; max-width: 360px;">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" class="search-input" id="audit-search-input" placeholder="Search actor, action, resource, hash..." style="width: 100%;" oninput="handleAuditSearch(this.value)">
+              </div>
+
+              <!-- Action-Type Filter Chips -->
+              <div class="filter-chips-container" id="audit-filter-chips">
+                <button class="filter-chip active" data-action-filter="all">All Events</button>
+                <button class="filter-chip" data-action-filter="Policy Change">Policy Change</button>
+                <button class="filter-chip" data-action-filter="Rebalance Triggered">Rebalance Triggered</button>
+                <button class="filter-chip" data-action-filter="Node Added/Removed">Node Added/Removed</button>
+                <button class="filter-chip" data-action-filter="Auth & Quorum">Auth & Quorum</button>
+                <button class="filter-chip" data-action-filter="Repair Action">Repair Action</button>
+                <button class="filter-chip" data-action-filter="Config Change">Config Change</button>
+              </div>
+
+              <!-- Date Range & Status Selectors -->
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <select class="form-input" id="audit-timerange-select" style="padding: 4px 8px; font-size: 0.75rem; font-family: var(--font-mono); width: auto;" onchange="handleAuditTimeRange(this.value)">
+                  <option value="all">Time: All History</option>
+                  <option value="1h">Time: Past 1 Hour</option>
+                  <option value="24h" selected>Time: Past 24 Hours</option>
+                  <option value="7d">Time: Past 7 Days</option>
+                </select>
+
+                <select class="form-input" id="audit-result-select" style="padding: 4px 8px; font-size: 0.75rem; font-family: var(--font-mono); width: auto;" onchange="handleAuditResultFilter(this.value)">
+                  <option value="all">Result: All</option>
+                  <option value="Success">Success Only</option>
+                  <option value="Failed">Failed Only</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dense Audit Table -->
+            <div class="table-container">
+              <table class="data-table audit-table">
+                <thead>
+                  <tr>
+                    <th style="width: 32px;"></th>
+                    <th style="min-width: 170px;">Timestamp (UTC)</th>
+                    <th style="min-width: 150px;">Actor / Identity</th>
+                    <th style="min-width: 160px;">Action Type</th>
+                    <th style="min-width: 180px;">Resource / Target</th>
+                    <th style="min-width: 100px;">Result</th>
+                    <th style="text-align: right;">Signature & Diff</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-table-body">
+                  <!-- Rendered dynamically by app.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Pagination & Counter -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-md); padding-top: var(--space-sm); border-top: 1px solid var(--border-subtle); font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">
+              <span id="audit-pagination-info">Showing 1–10 of 14,291 events (sorted newest first)</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-secondary btn-sm" id="btn-audit-prev" onclick="handleAuditPage(-1)" disabled>Prev</button>
+                <button class="btn btn-secondary btn-sm" id="btn-audit-next" onclick="handleAuditPage(1)">Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Global Footer -->
+      <footer class="app-footer">
+        <div class="footer-left">
+          <span>◈ Status: <strong class="text-emerald">All systems nominal</strong></span>
+          <span>|</span>
+          <span>Consensus: <strong class="text-cyan">Raft Quorum Stable</strong></span>
+          <span>|</span>
+          <span>Active Scrub: <strong class="text-muted">Idle (Next: 04:00 UTC)</strong></span>
+        </div>
+        <div class="footer-right">
+          <span>Throughput: <strong class="text-cyan" id="footer-throughput">14.8 GB/s</strong></span>
+          <span>|</span>
+          <span>Mesh IOPS: <strong class="text-primary" id="footer-iops">412,890/s</strong></span>
+        </div>
+      </footer>
+    </div> <!-- /main-wrapper -->
+  </div> <!-- /dashboard-console-wrapper -->
+</div> <!-- /app-container -->
+
+  <!-- ==================== REBALANCE CONFIRMATION MODAL ==================== -->
+  <div class="modal-backdrop" id="rebalance-modal-backdrop">
+    <div class="detail-modal-box">
+      <div class="detail-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="material-symbols-outlined text-cyan" style="font-size: 24px;">sync_alt</span>
+          <div>
+            <div class="font-bold text-md text-primary">Trigger Cluster Equalization Rebalance</div>
+            <div class="font-mono text-xs text-muted">CRUSH Map Epoch: #4,891,208</div>
+          </div>
+        </div>
+        <button class="btn-icon" onclick="closeRebalanceModal()">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
+      <div class="detail-modal-body">
+        <p class="text-sm text-secondary">
+          Initiates automated placement group (PG) realignments across all 16 storage ring daemons to mitigate capacity skew and absorb new node additions.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Est. Volume to Move</span>
+            <div class="font-mono text-cyan font-bold text-md">5.8 TB</div>
+            <span class="font-mono text-xs text-muted">3,410 Shards</span>
+          </div>
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Governor Throttle</span>
+            <div class="font-mono text-teal font-bold text-md">10% Bandwidth</div>
+            <span class="font-mono text-xs text-muted">450 MB/s Cap</span>
+          </div>
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Convergence ETA</span>
+            <div class="font-mono text-emerald font-bold text-md">~02h 15m</div>
+            <span class="font-mono text-xs text-muted">Zero SLA Impact</span>
+          </div>
+        </div>
+
+        <div style="background: var(--surface-low); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; font-family: var(--font-mono); font-size: 0.75rem; display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+            <span>Target Hot-Spot Mitigation:</span>
+            <span class="text-cyan font-bold">node-va-04 (94% → 71% fill)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+            <span>Target Expansion Receiver:</span>
+            <span class="text-emerald font-bold">node-va-12 (12% → 68% fill)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+            <span>Spine I/O Protection:</span>
+            <span class="text-teal font-bold">Adaptive cgroups v2 Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeRebalanceModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="confirmStartRebalance()">
+          <span class="material-symbols-outlined" style="font-size: 16px;">play_arrow</span>
+          <span>Start Cluster Rebalance</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OSD NODE DETAIL MODAL ==================== -->
+  <div class="modal-backdrop" id="node-detail-modal-backdrop">
+    <div class="detail-modal-box">
+      <div class="detail-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="status-beacon" id="modal-node-beacon" style="background: var(--cyan-primary);"></span>
+          <div>
+            <div class="font-bold text-md text-primary font-mono" id="modal-node-title">node-us-east-04 (OSD.04)</div>
+            <div class="font-mono text-xs text-muted" id="modal-node-subtitle">Virginia Primary / Rack-01 / Zone us-east-2a</div>
+          </div>
+        </div>
+        <button class="btn-icon" onclick="closeNodeModal()">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
+      <div class="detail-modal-body">
+        <!-- Node Stats Grid -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Live IOPS</span>
+            <div class="font-mono text-cyan font-bold text-md" id="modal-node-iops">18.4k /s</div>
+            <span class="font-mono text-xs text-muted">Queue: 14 µs</span>
+          </div>
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Temp & Health</span>
+            <div class="font-mono text-emerald font-bold text-md" id="modal-node-temp">38°C · 98% Health</div>
+            <span class="font-mono text-xs text-muted">Samsung PM1733 NVMe</span>
+          </div>
+          <div class="kpi-tile" style="padding: 10px; background: var(--surface-low);">
+            <span class="kpi-label" style="font-size: 0.625rem;">Last Heartbeat</span>
+            <div class="font-mono text-teal font-bold text-md" id="modal-node-heartbeat">0.12s ago (ACK)</div>
+            <span class="font-mono text-xs text-emerald">Quorum Synchronized</span>
+          </div>
+        </div>
+
+        <!-- Disk Fill Meter -->
+        <div style="background: var(--surface-low); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem;">
+            <span>Allocated Storage Volume:</span>
+            <span class="text-cyan font-bold" id="modal-node-capacity">12.4 TB / 16.0 TB (77.5% Fill)</span>
+          </div>
+          <div class="progress-track" style="height: 8px;">
+            <div class="progress-fill cyan" id="modal-node-fill-bar" style="width: 77.5%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted);">
+            <span>Primary Inode Allocation: 4.8M objects</span>
+            <span class="text-emerald">RocksDB WAL Pinned</span>
+          </div>
+        </div>
+
+        <!-- Active Placement Groups Table -->
+        <div>
+          <span class="kpi-label" style="margin-bottom: 6px; display: block;">Hosted Placement Groups & Shard Roles</span>
+          <div style="background: var(--surface-low); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 8px; font-family: var(--font-mono); font-size: 0.75rem; display: flex; flex-direction: column; gap: 4px;" id="modal-node-pgs-list">
+            <div style="display: flex; justify-content: space-between; padding: 4px; border-bottom: 1px solid var(--border-subtle);">
+              <span class="text-cyan font-bold">pg.4412_ec63</span>
+              <span class="status-pill active" style="font-size: 0.6rem;">PRIMARY OSD</span>
+              <span class="text-secondary">420 GB / 12,410 objs</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 4px; border-bottom: 1px solid var(--border-subtle);">
+              <span class="text-teal font-bold">pg.1098_rep3</span>
+              <span class="status-pill" style="background: var(--surface-high); font-size: 0.6rem;">REPLICA COPY 2</span>
+              <span class="text-secondary">280 GB / 8,190 objs</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 4px;">
+              <span class="text-emerald font-bold">pg.8812_ec84</span>
+              <span class="status-pill healthy" style="font-size: 0.6rem;">PARITY SHARD P1</span>
+              <span class="text-secondary">360 GB / 9,410 objs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="handleModalNodeAction('scrub')">
+          <span class="material-symbols-outlined" style="font-size: 16px;">cleaning_services</span>
+          <span>Trigger Deep Scrub</span>
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="handleModalNodeAction('drain')">
+          <span class="material-symbols-outlined text-teal" style="font-size: 16px;">sync_alt</span>
+          <span>Drain & Rebalance</span>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="handleModalNodeAction('isolate')">
+          <span class="material-symbols-outlined" style="font-size: 16px;">power_off</span>
+          <span>Isolate Node</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== COMMAND PALETTE MODAL (⌘K) ==================== -->
+  <div class="modal-backdrop" id="command-modal-backdrop">
+    <div class="command-modal">
+      <div class="command-input-wrap">
+        <span class="material-symbols-outlined">terminal</span>
+        <input type="text" class="command-input" id="command-input" placeholder="Type a command or search screens... (Esc to close)">
+      </div>
+      <ul class="command-list" id="command-list">
+        <li class="command-item" data-action="view:dashboard">
+          <span>Dashboard & Concurrency Monitor</span>
+          <span class="kbd-shortcut">G D</span>
+        </li>
+        <li class="command-item" data-action="view:policies">
+          <span>Durability Policies & Erasure Coding Synthesizer</span>
+          <span class="kbd-shortcut">G P</span>
+        </li>
+        <li class="command-item" data-action="view:rebalancing">
+          <span>Background Rebalancing & Foreground I/O Governor</span>
+          <span class="kbd-shortcut">G R</span>
+        </li>
+        <li class="command-item" data-action="view:metadata">
+          <span>Metadata Consistency & Raft Consensus Fabric</span>
+          <span class="kbd-shortcut">G M</span>
+        </li>
+        <li class="command-item" data-action="view:failure-sim">
+          <span>Chaos Sandbox & Failure Simulator</span>
+          <span class="kbd-shortcut">G F</span>
+        </li>
+        <li class="command-item" data-action="view:bitrot">
+          <span>Byzantine Bit-Rot Incident Forensics Drill</span>
+          <span class="kbd-shortcut">G B</span>
+        </li>
+        <li class="command-item" data-action="view:audit">
+          <span>Audit Log & Forensic Activity Trail</span>
+          <span class="kbd-shortcut">G A</span>
+        </li>
+        <li class="command-item" data-action="chaos:kill">
+          <span class="text-red">Chaos: Kill Storage Node</span>
+          <span class="kbd-shortcut">K</span>
+        </li>
+        <li class="command-item" data-action="chaos:restore">
+          <span class="text-emerald">Restore All Nodes & Quorum</span>
+          <span class="kbd-shortcut">R</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== INFORMATION / DOCS MODAL DIALOG ==================== -->
+  <div class="info-modal-backdrop" id="info-modal-backdrop">
+    <div class="info-modal-box">
+      <button class="info-modal-close" id="btn-close-info-modal" aria-label="Close modal">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div id="info-modal-content-area">
+        <!-- Content dynamically injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Application Logic -->
+  <script src="landing.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

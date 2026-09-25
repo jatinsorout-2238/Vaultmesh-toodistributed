@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaultMesh — Distributed Object Storage, Self-Healing by Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo-group">
+        <div class="brand-mark">◈</div>
+        <div class="brand-title">
+          VaultMesh <span class="accent-dot">.</span>
+        </div>
+        <span class="brand-tag">v4.18</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#discover" class="nav-item-link">Discover</a></li>
+          <li><a href="#philosophy" class="nav-item-link">Resilience</a></li>
+          <li><a href="#architecture" class="nav-item-link">Architecture</a></li>
+          <li><a href="#personas" class="nav-item-link">Solutions</a></li>
+          <li><a href="#quickstart" class="nav-item-link">Get Started</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn-launch-console" id="nav-launch-console">
+          <span class="console-beacon"></span>
+          <span>Launch Console</span>
+          <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section" id="discover">
+    <div class="container hero-content">
+      <div class="hero-pill-badge">
+        <span class="pill-beacon"></span>
+        <span>VaultMesh 4.18 Production Release</span>
+        <span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
+      </div>
+
+      <h1 class="hero-title">
+        Resilient Storage, <br>
+        <span class="gradient-text">Self-Healing by Design.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        VaultMesh is a distributed, high-density object storage fabric engineered for linearizable consistency, autonomous Reed-Solomon bit-rot repair, and CRUSH-driven failure domain isolation at exabyte scale.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="index.html" class="btn-hero-primary">
+          <span class="material-symbols-outlined" style="font-size: 20px;">terminal</span>
+          <span>Launch Mission Control</span>
+          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+        </a>
+        <a href="#architecture" class="btn-hero-secondary">
+          <span class="material-symbols-outlined" style="font-size: 20px;">account_tree</span>
+          <span>View Architecture</span>
+        </a>
+      </div>
+
+      <!-- Quick Install Box -->
+      <div class="hero-cli-box">
+        <span class="text-muted" style="user-select: none;">$</span>
+        <span class="hero-cli-text" id="install-cmd">curl -sSL https://get.vaultmesh.io | bash</span>
+        <button class="hero-cli-copy" id="btn-copy-install" title="Copy to clipboard">
+          <span class="material-symbols-outlined" style="font-size: 14px;">content_copy</span>
+          <span id="copy-btn-label">Copy</span>
+        </button>
+      </div>
+
+      <!-- Credibility Badges Strip -->
+      <div class="credibility-strip">
+        <div class="credibility-badge">
+          <span class="material-symbols-outlined credibility-icon">verified_user</span>
+          <span><strong class="credibility-val">99.999%</strong> Availability SLA</span>
+        </div>
+        <div class="credibility-badge">
+          <span class="material-symbols-outlined credibility-icon">grid_4x4</span>
+          <span><strong class="credibility-val">RS(8+4)</strong> Erasure Coding</span>
+        </div>
+        <div class="credibility-badge">
+          <span class="material-symbols-outlined credibility-icon">lan</span>
+          <span><strong class="credibility-val">Raft</strong> Linearizable Consensus</span>
+        </div>
+        <div class="credibility-badge">
+          <span class="material-symbols-outlined credibility-icon">dns</span>
+          <span><strong class="credibility-val">128-Node</strong> Zero-SPOF Fabric</span>
+        </div>
+        <div class="credibility-badge">
+          <span class="material-symbols-outlined credibility-icon">bolt</span>
+          <span><strong class="credibility-val">&lt;0.5s</strong> Auto-Heal MTTR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RELIABLE AND SCALABLE STORAGE SECTION ==================== -->
+  <section class="section-philosophy" id="philosophy">
+    <div class="container">
+      <div class="split-2col-layout">
+
+        <!-- Left Column: Narrative Philosophy -->
+        <div>
+          <span class="section-tag">
+            <span class="material-symbols-outlined" style="font-size: 16px;">shield</span>
+            Core Philosophy
+          </span>
+          <h2 class="section-heading">
+            Reliable, Scalable Storage Without Single Points of Failure.
+          </h2>
+          <p class="section-desc">
+            Traditional object stores rely on centralized metadata lookups and brittle master-worker coordinators. VaultMesh replaces lookup tables with algorithmic <strong>CRUSH distribution</strong> and autonomous, localized <strong>Galois Field mathematical repair</strong>.
+          </p>
+          <p class="section-desc" style="font-size: 0.9375rem; color: var(--text-muted);">
+            When silent hardware bit-rot or spinal network partitions occur, surviving nodes autonomously reconstruct corrupted blocks via AVX-512 SIMD vector instructions in under 350 milliseconds—completely transparent to customer S3 read/write traffic.
+          </p>
+
+          <ul class="feature-check-list">
+            <li class="feature-check-item">
+              <span class="feature-check-icon">✓</span>
+              <div>
+                <strong class="text-main">Zero Centralized Metadata Bottlenecks:</strong>
+                <span class="text-muted"> Clients compute exact storage node locations directly using deterministic pseudo-random hashing.</span>
+              </div>
+            </li>
+            <li class="feature-check-item">
+              <span class="feature-check-icon">✓</span>
+              <div>
+                <strong class="text-main">Continuous Cryptographic Scrubbing:</strong>
+                <span class="text-muted"> 100% BLAKE3 Merkle integrity verification guarantees zero silent bit drift across multi-petabyte pools.</span>
+              </div>
+            </li>
+            <li class="feature-check-item">
+              <span class="feature-check-icon">✓</span>
+              <div>
+                <strong class="text-main">Adaptive I/O Governors (cgroups v2):</strong>
+                <span class="text-muted"> Foreground customer traffic is automatically protected with dynamic bandwidth limits on background rebalancing.</span>
+              </div>
+            </li>
+          </ul>
+
+          <a href="index.html#view-policies" class="btn-hero-secondary" style="font-size: 0.875rem;">
+            <span>Explore Durability Policies</span>
+            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Right Column: Static Topology Architecture Diagram -->
+        <div class="topology-illustration-card">
+          <div class="topology-header-bar">
+            <span style="font-weight: 700; color: var(--text-main);">CRUSH PLACEMENT TOPOLOGY</span>
+            <span>MULTI-AZ FAILURE DOMAINS</span>
+          </div>
+
+          <!-- Crisp SVG Architecture Graphic -->
+          <div class="svg-diagram-wrapper">
+            <svg viewBox="0 0 460 300" style="width: 100%; height: auto; max-width: 440px;" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0284c7"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+                <linearGradient id="crushGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0f172a"/>
+                  <stop offset="100%" stop-color="#1e293b"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Ingress Node -->
+              <rect x="150" y="10" width="160" height="38" rx="8" fill="url(#clientGrad)"/>
+              <text x="230" y="34" fill="#ffffff" font-family="Inter" font-weight="700" font-size="12" text-anchor="middle">S3 / gRPC Ingress</text>
+
+              <!-- Line down to CRUSH Function -->
+              <path d="M 230 48 L 230 75" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3,3"/>
+              
+              <!-- CRUSH Hash Engine -->
+              <rect x="130" y="75" width="200" height="42" rx="8" fill="url(#crushGrad)" stroke="#00f0d0" stroke-width="1.5"/>
+              <text x="230" y="96" fill="#00f0d0" font-family="JetBrains Mono" font-weight="700" font-size="11" text-anchor="middle">CRUSH Algorithm</text>
+              <text x="230" y="109" fill="#94a3b8" font-family="JetBrains Mono" font-size="8" text-anchor="middle">hash(obj_id, epoch) → (OSD_0, OSD_1...)</text>
+
+              <!-- Branches to 3 Failure Zones -->
+              <path d="M 230 117 L 80 160" stroke="#06b6d4" stroke-width="1.5"/>
+              <path d="M 230 117 L 230 160" stroke="#0d9488" stroke-width="1.5"/>
+              <path d="M 230 117 L 380 160" stroke="#10b981" stroke-width="1.5"/>
+
+              <!-- Zone 1: us-east-2a -->
+              <g transform="translate(20, 160)">
+                <rect width="120" height="110" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <text x="60" y="20" fill="#0f172a" font-family="JetBrains Mono" font-weight="700" font-size="10" text-anchor="middle">Zone: us-east-2a</text>
+                
+                <!-- Shard D1 -->
+                <rect x="10" y="32" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="46" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.01 [Data D1]</text>
+                
+                <!-- Shard D2 -->
+                <rect x="10" y="58" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="72" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.02 [Data D2]</text>
+
+                <!-- Parity P1 -->
+                <rect x="10" y="84" width="100" height="20" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+                <text x="60" y="98" fill="#0f766e" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.03 [Parity P1]</text>
+              </g>
+
+              <!-- Zone 2: us-east-2b -->
+              <g transform="translate(170, 160)">
+                <rect width="120" height="110" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <text x="60" y="20" fill="#0f172a" font-family="JetBrains Mono" font-weight="700" font-size="10" text-anchor="middle">Zone: us-east-2b</text>
+                
+                <!-- Shard D3 -->
+                <rect x="10" y="32" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="46" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.05 [Data D3]</text>
+                
+                <!-- Shard D4 -->
+                <rect x="10" y="58" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="72" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.06 [Data D4]</text>
+
+                <!-- Parity P2 -->
+                <rect x="10" y="84" width="100" height="20" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+                <text x="60" y="98" fill="#0f766e" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.07 [Parity P2]</text>
+              </g>
+
+              <!-- Zone 3: us-east-2c -->
+              <g transform="translate(320, 160)">
+                <rect width="120" height="110" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <text x="60" y="20" fill="#0f172a" font-family="JetBrains Mono" font-weight="700" font-size="10" text-anchor="middle">Zone: us-east-2c</text>
+                
+                <!-- Shard D5 -->
+                <rect x="10" y="32" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="46" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.09 [Data D5]</text>
+                
+                <!-- Shard D6 -->
+                <rect x="10" y="58" width="100" height="20" rx="4" fill="#f0fdfa" stroke="#06b6d4"/>
+                <text x="60" y="72" fill="#0284c7" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.10 [Data D6]</text>
+
+                <!-- Parity P3 -->
+                <rect x="10" y="84" width="100" height="20" rx="4" fill="#ecfdf5" stroke="#10b981"/>
+                <text x="60" y="98" fill="#0f766e" font-family="JetBrains Mono" font-size="9" text-anchor="middle">OSD.11 [Parity P3]</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="topology-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #0284c7;"></span>
+              <span>Data Shards (k=8)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #10b981;"></span>
+              <span>Parity Shards (m=4)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background: #0f172a;"></span>
+              <span>Anti-Affinity Rule Active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       DARK TECHNICAL ARCHITECTURE SECTION (VaultMesh Visual Language Bridge)
+       ========================================================================== -->
+  <section class="section-dark-technical" id="architecture">
+    <div class="container">
+      <div class="dark-section-header">
+        <span class="dark-tag">
+          <span class="material-symbols-outlined" style="font-size: 16px;">terminal</span>
+          Under the Hood
+        </span>
+        <h2 class="dark-heading">Engineered for Extreme Durability</h2>
+        <p class="dark-desc">
+          VaultMesh merges high-performance BlueStore NVMe tiering with SIMD-accelerated Reed-Solomon Galois matrices and multi-Raft linearizable state machines.
+        </p>
+      </div>
+
+      <!-- Bento Grid Architecture -->
+      <div class="bento-technical-grid">
+
+        <!-- Card 1: Featured CRUSH Engine -->
+        <div class="dark-card featured">
+          <div>
+            <div class="dark-card-icon-wrap">
+              <span class="material-symbols-outlined" style="font-size: 24px;">hub</span>
+            </div>
+            <h3 class="dark-card-title">Deterministic CRUSH Map Algorithm</h3>
+            <p class="dark-card-body">
+              Eliminates centralized directory lookups entirely. Given an object identifier and cluster epoch number, clients calculate placement groups across failure domains with deterministic mathematical pseudo-random weighting.
+            </p>
+          </div>
+
+          <!-- Visual Monospace Snippet -->
+          <div class="dark-code-block">
+<span style="color:#64748b;">// CRUSH rule execution matrix</span>
+crush_rule "s3-standard-ec84" {
+  type: erasure_coded
+  min_size: 12
+  step take default_root
+  step chooseleaf firstn 8 type rack
+  step emit data_chunks [D1..D8]
+  step chooseleaf firstn 4 type zone
+  step emit parity_chunks [P1..P4]
+}</div>
+
+          <div class="dark-card-footer">
+            <span class="text-cyan">Epoch #4,891,208 Active</span>
+            <a href="index.html#view-topology" class="text-cyan font-bold" style="display:flex; align-items:center; gap:4px;">
+              Live CRUSH Topology →
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Raft Consensus -->
+        <div class="dark-card">
+          <div>
+            <div class="dark-card-icon-wrap">
+              <span class="material-symbols-outlined" style="font-size: 24px;">verified</span>
+            </div>
+            <h3 class="dark-card-title">Raft Consensus & Inode Merkle Journal</h3>
+            <p class="dark-card-body">
+              Linearizable metadata state machine with multi-region 3/5 voter quorums, lease renewals in 0.4ms, and direct RocksDB WAL Optane syncing.
+            </p>
+          </div>
+          <div class="dark-card-footer">
+            <span class="text-emerald">Quorum: 5/5 Validated</span>
+            <a href="index.html#view-metadata" class="text-emerald font-bold">Inspect Raft →</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Adaptive I/O Governor -->
+        <div class="dark-card">
+          <div>
+            <div class="dark-card-icon-wrap">
+              <span class="material-symbols-outlined" style="font-size: 24px;">speed</span>
+            </div>
+            <h3 class="dark-card-title">Adaptive cgroups v2 Governor</h3>
+            <p class="dark-card-body">
+              Automatic bandwidth ceilings protect customer P99 read latency during petabyte-scale rebalancing migrations and node additions.
+            </p>
+          </div>
+          <div class="dark-card-footer">
+            <span class="text-teal">Cap: 10% (450 MB/s)</span>
+            <a href="index.html#view-rebalancing" class="text-teal font-bold">Live Governor →</a>
+          </div>
+        </div>
+
+        <!-- Card 4: Cryptographic Forensic Audit Trail -->
+        <div class="dark-card">
+          <div>
+            <div class="dark-card-icon-wrap">
+              <span class="material-symbols-outlined" style="font-size: 24px;">receipt_long</span>
+            </div>
+            <h3 class="dark-card-title">Forensic Audit Trail & Merkle Signatures</h3>
+            <p class="dark-card-body">
+              Cryptographically sealed append-only audit trail capturing administrative commands, policy modifications, and automated self-healing triggers.
+            </p>
+          </div>
+          <div class="dark-card-footer">
+            <span class="text-cyan">14,291 Signed Events</span>
+            <a href="index.html#view-audit" class="text-cyan font-bold">Open Audit Trail →</a>
+          </div>
+        </div>
+
+        <!-- Card 5: Byzantine Bit-Rot Scrubber -->
+        <div class="dark-card">
+          <div>
+            <div class="dark-card-icon-wrap">
+              <span class="material-symbols-outlined" style="font-size: 24px;">security_update_warning</span>
+            </div>
+            <h3 class="dark-card-title">Galois Field Bit-Rot Recovery</h3>
+            <p class="dark-card-body">
+              Continuous background deep-scrubbing. Reed-Solomon AVX-512 Galois matrix reconstructs corrupted blocks in under 0.35 seconds.
+            </p>
+          </div>
+          <div class="dark-card-footer">
+            <span class="text-emerald">184 Auto Runs (24h)</span>
+            <a href="index.html#view-bitrot" class="text-emerald font-bold">Bit-Rot Drill →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Link to Full Mission Control Dashboard -->
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="index.html" class="btn-hero-primary" style="display: inline-flex;">
+          <span class="material-symbols-outlined" style="font-size: 20px;">dashboard</span>
+          <span>Explore Mission Control Live Cluster</span>
+          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TWO FEATURE CARDS: FOR OPERATORS vs FOR DEVELOPERS
+       ========================================================================== -->
+  <section class="section-personas" id="personas">
+    <div class="container">
+      <div class="personas-grid">
+
+        <!-- Card 1: For Operators -->
+        <div class="persona-card">
+          <div>
+            <div class="persona-badge operator">
+              <span class="material-symbols-outlined" style="font-size: 14px;">dns</span>
+              <span>FOR INFRASTRUCTURE & SRE OPERATORS</span>
+            </div>
+            <h3 class="persona-title">Deploy, Equalize & Simulate Cluster Chaos</h3>
+            <p class="persona-desc">
+              Full observability across 128 storage daemons with integrated fault simulation and zero-downtime shard rebalancing.
+            </p>
+            <ul class="persona-bullets">
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon">check_circle</span>
+                <span><strong>Failure Simulator & Chaos Sandbox:</strong> Safely inject node dropouts, split-brain WAN partitions, and synthetic spine latency.</span>
+              </li>
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon">check_circle</span>
+                <span><strong>Point-to-Point Rebalancing:</strong> 16 parallel migration workers with adaptive governor throttling.</span>
+              </li>
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon">check_circle</span>
+                <span><strong>Forensic Audit Trail:</strong> Immutable Merkle-sealed journal with structured JSON delta diffs and CSV/JSON export.</span>
+              </li>
+            </ul>
+          </div>
+          <a href="index.html" class="btn-persona operator-btn">
+            <span>Launch Mission Control Console</span>
+            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Card 2: For Developers -->
+        <div class="persona-card">
+          <div>
+            <div class="persona-badge developer">
+              <span class="material-symbols-outlined" style="font-size: 14px;">code</span>
+              <span>FOR SYSTEM DEVELOPERS & ARCHITECTS</span>
+            </div>
+            <h3 class="persona-title">S3-Compatible, Strict Linearizable Consistency</h3>
+            <p class="persona-desc">
+              Drop-in compatibility with standard AWS S3 SDKs, low-latency multiplexed HTTP/2 ingress, and programmatic durability policies.
+            </p>
+            <ul class="persona-bullets">
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon" style="color: var(--brand-teal);">check_circle</span>
+                <span><strong>100% S3 API Compatibility:</strong> Zero code changes for boto3, aws-sdk-js, minio-go, and AWS CLI clients.</span>
+              </li>
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon" style="color: var(--brand-teal);">check_circle</span>
+                <span><strong>Policy Synthesizer:</strong> Declarative Erasure Coding RS(k+m) or Full Replication configured per bucket namespace.</span>
+              </li>
+              <li class="persona-bullet-item">
+                <span class="material-symbols-outlined persona-bullet-icon" style="color: var(--brand-teal);">check_circle</span>
+                <span><strong>Sub-Millisecond P50 Latency:</strong> 116.3k QPS throughput with multi-stream epoll concurrency rings.</span>
+              </li>
+            </ul>
+          </div>
+          <a href="index.html#view-policies" class="btn-persona developer-btn">
+            <span>Synthesize Durability Policies</span>
+            <span class="material-symbols-outlined" style="font-size: 16px;">tune</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       GET STARTED / QUICKSTART SECTION
+       ========================================================================== -->
+  <section class="section-cta-banner" id="quickstart">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-text-group">
+          <span class="dark-tag" style="margin-bottom: 8px;">Quick Deployment</span>
+          <h2 class="cta-heading">Spin Up a 16-Node Cluster in 60 Seconds</h2>
+          <p class="cta-desc">
+            Download the VaultMesh single binary or Docker container to provision an autonomous, self-healing object storage mesh on your bare metal or cloud VPC.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a href="index.html" class="btn-hero-primary" style="justify-content: center;">
+            <span class="console-beacon"></span>
+            <span>Launch Console</span>
+          </a>
+          <a href="index.html#view-topology" class="btn-hero-secondary" style="justify-content: center; background: transparent; color: #ffffff; border-color: rgba(255,255,255,0.2);">
+            <span>Inspect Topology Map</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SITE FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+
+        <!-- Col 1: Brand Info -->
+        <div class="footer-brand-info">
+          <div class="brand-logo-group">
+            <div class="brand-mark">◈</div>
+            <div class="brand-title">VaultMesh</div>
+          </div>
+          <p class="footer-desc">
+            Autonomous distributed object storage fabric built for high resiliency, sub-second self-healing, and linearizable durability.
+          </p>
+          <div class="brand-tag" style="width: fit-content;">Apache 2.0 Open Source License</div>
+        </div>
+
+        <!-- Col 2: Product -->
+        <div>
+          <h4 class="footer-col-title">Product</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#view-dashboard" class="footer-link">Mission Control</a></li>
+            <li><a href="index.html#view-topology" class="footer-link">CRUSH Topology</a></li>
+            <li><a href="index.html#view-policies" class="footer-link">Durability Policies</a></li>
+            <li><a href="index.html#view-rebalancing" class="footer-link">Rebalancing Engine</a></li>
+            <li><a href="index.html#view-failure-sim" class="footer-link">Failure Simulator</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Architecture -->
+        <div>
+          <h4 class="footer-col-title">Architecture</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#view-metadata" class="footer-link">Raft Consensus</a></li>
+            <li><a href="index.html#view-bitrot" class="footer-link">Galois Bit-Rot Repair</a></li>
+            <li><a href="index.html#view-audit" class="footer-link">Forensic Audit Log</a></li>
+            <li><a href="#philosophy" class="footer-link">Anti-Affinity Domains</a></li>
+            <li><a href="#quickstart" class="footer-link">Quickstart Guide</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Community -->
+        <div>
+          <h4 class="footer-col-title">Community</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com" target="_blank" class="footer-link">GitHub Repository</a></li>
+            <li><a href="https://discord.com" target="_blank" class="footer-link">Discord Community</a></li>
+            <li><a href="https://slack.com" target="_blank" class="footer-link">Slack Workspace</a></li>
+            <li><a href="https://twitter.com" target="_blank" class="footer-link">X / Twitter</a></li>
+            <li><a href="https://reddit.com" target="_blank" class="footer-link">Reddit Discussion</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Governance -->
+        <div>
+          <h4 class="footer-col-title">Governance</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Security Disclosures</a></li>
+            <li><a href="#" class="footer-link">RFC Process</a></li>
+            <li><a href="#" class="footer-link">Code of Conduct</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 VaultMesh Open Source Project. All rights reserved. Built with Antigravity.
+        </div>
+        <div class="footer-social-row">
+          <a href="https://github.com" target="_blank" class="social-icon-btn" title="GitHub">
+            <span class="material-symbols-outlined">code</span>
+          </a>
+          <a href="https://discord.com" target="_blank" class="social-icon-btn" title="Community">
+            <span class="material-symbols-outlined">forum</span>
+          </a>
+          <a href="index.html" class="social-icon-btn" title="Mission Control Console">
+            <span class="material-symbols-outlined text-cyan">terminal</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="landing.js"></script>
+</body>
+</html>

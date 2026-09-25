@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: vaultmesh
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.0.0
+      - key: NODE_ENV
+        value: production
